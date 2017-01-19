@@ -2,9 +2,11 @@ package com.innercirclesoftware.londair;
 
 import android.app.Application;
 
+import com.innercirclesoftware.londair.airquality.TflService;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 import com.innercirclesoftware.londair.injection.components.DaggerApplicationComponent;
 import com.innercirclesoftware.londair.injection.modules.AndroidModule;
+import com.innercirclesoftware.londair.injection.modules.NetworkModule;
 
 import timber.log.Timber;
 
@@ -26,6 +28,7 @@ public class LondAir extends Application {
     private void initDependencyInjection() {
         component = DaggerApplicationComponent.builder()
                 .androidModule(new AndroidModule(this))
+                .networkModule(new NetworkModule(TflService.BASE_URL))
                 .build();
     }
 

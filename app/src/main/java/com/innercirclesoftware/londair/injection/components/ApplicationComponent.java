@@ -1,6 +1,7 @@
 package com.innercirclesoftware.londair.injection.components;
 
 import com.innercirclesoftware.londair.injection.modules.AndroidModule;
+import com.innercirclesoftware.londair.injection.modules.NetworkModule;
 import com.innercirclesoftware.londair.injection.modules.PresenterModule;
 import com.innercirclesoftware.londair.main.MainActivity;
 
@@ -12,6 +13,7 @@ import dagger.Component;
 @Component(modules = {
         AndroidModule.class,
         PresenterModule.class,
+        NetworkModule.class,
 })
 public interface ApplicationComponent {
 
