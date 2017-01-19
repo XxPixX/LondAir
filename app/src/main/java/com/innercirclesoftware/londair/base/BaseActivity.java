@@ -7,7 +7,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.innercirclesoftware.londair.LondAir;
 import com.innercirclesoftware.londair.R;
+import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 import com.innercirclesoftware.londair.main.MainView;
 
 import butterknife.BindView;
@@ -38,5 +40,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
     @SuppressWarnings("UnusedParameters")
     protected void onSetActionBar(@NonNull ActionBar actionBar) {
 
+    }
+
+    protected ApplicationComponent getComponent() {
+        return getApp().getApplicationComponent();
+    }
+
+    protected LondAir getApp() {
+        return (LondAir) getApplication();
     }
 }
