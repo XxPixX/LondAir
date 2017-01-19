@@ -8,11 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.innercirclesoftware.londair.R;
+import com.innercirclesoftware.londair.main.MainView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends AppCompatActivity implements Layoutable {
+public abstract class BaseActivity extends AppCompatActivity implements Layoutable, MainView {
 
     @Nullable
     @BindView(R.id.toolbar)
