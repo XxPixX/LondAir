@@ -10,7 +10,7 @@ import com.innercirclesoftware.londair.airquality.AirQualityFragment;
 class ForecastViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private static final int TAB_COUNT = 2;
-    SparseArray<AirQualityFragment> registeredFragments = new SparseArray<AirQualityFragment>();
+    private SparseArray<AirQualityFragment> registeredFragments = new SparseArray<AirQualityFragment>();
 
     ForecastViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -39,7 +39,7 @@ class ForecastViewPagerAdapter extends FragmentStatePagerAdapter {
         return TAB_COUNT;
     }
 
-    public AirQualityFragment getFragment(int position) {
+    AirQualityFragment getFragment(int position) {
         return registeredFragments.get(position);
     }
 }
