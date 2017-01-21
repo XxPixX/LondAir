@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatSpinner;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.innercirclesoftware.londair.R;
@@ -43,6 +45,17 @@ public class MainActivity extends BaseActivity implements MainView {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dateSpinner.setAdapter(adapter);
+        dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                presenter.onSpinnerDateItemSelected(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -59,5 +72,10 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     protected void onSetActionBar(@NonNull ActionBar actionBar) {
         super.onSetActionBar(actionBar);
+    }
+
+    @Override
+    public void showForecastFragment(int position) {
+        viewPager.setCurrentItem(position, true);
     }
 }
