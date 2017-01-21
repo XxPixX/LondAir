@@ -3,6 +3,7 @@ package com.innercirclesoftware.londair.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatSpinner;
 import android.widget.ArrayAdapter;
@@ -18,13 +19,19 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Inject MainPresenter presenter;
     @BindView(R.id.date_spinner) AppCompatSpinner dateSpinner;
+    @BindView(R.id.view_pager) ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getComponent().inject(this);
         initDateSpinner();
+        initViewPager();
         presenter.attachView(this);
+    }
+
+    private void initViewPager() {
+        viewPager.setAdapter(new ForecastViewPagerAdapter(getSupportFragmentManager()));
     }
 
     private void initDateSpinner() {
