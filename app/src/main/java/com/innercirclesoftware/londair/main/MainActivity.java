@@ -76,7 +76,9 @@ public class MainActivity extends BaseActivity implements MainView {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                //Fixes issue where swiping horizontally interferes with the SwipeRefreshLayout
+                //http://stackoverflow.com/questions/25978462/swiperefreshlayout-viewpager-limit-horizontal-scroll-only
+                swipeRefreshLayout.setEnabled(state == ViewPager.SCROLL_STATE_IDLE);
             }
         });
     }
