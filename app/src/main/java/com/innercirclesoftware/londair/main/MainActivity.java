@@ -4,6 +4,7 @@ package com.innercirclesoftware.londair.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
@@ -22,6 +23,7 @@ public class MainActivity extends BaseActivity implements MainView {
     @Inject MainPresenter presenter;
     @BindView(R.id.date_spinner) AppCompatSpinner dateSpinner;
     @BindView(R.id.view_pager) ViewPager viewPager;
+    @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,8 @@ public class MainActivity extends BaseActivity implements MainView {
         getComponent().inject(this);
         initDateSpinner();
         initViewPager();
+        initSwipeRefreshLayout();
         presenter.attachView(this);
-    }
-
-    private void initViewPager() {
-        viewPager.setAdapter(new ForecastViewPagerAdapter(getSupportFragmentManager()));
     }
 
     private void initDateSpinner() {
@@ -56,6 +55,14 @@ public class MainActivity extends BaseActivity implements MainView {
 
             }
         });
+    }
+
+    private void initViewPager() {
+        viewPager.setAdapter(new ForecastViewPagerAdapter(getSupportFragmentManager()));
+    }
+
+    private void initSwipeRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefreshSwiped());
     }
 
     @Override

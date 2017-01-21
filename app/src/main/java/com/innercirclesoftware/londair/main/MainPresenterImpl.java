@@ -27,4 +27,9 @@ public class MainPresenterImpl implements MainPresenter {
             Timber.w("onSpinnerDateItemSelected with position %s but the view is null", position);
         }
     }
+
+    @Override
+    public void onRefreshSwiped() {
+
+    }
 }

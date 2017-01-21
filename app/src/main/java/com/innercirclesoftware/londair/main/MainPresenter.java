@@ -6,4 +6,5 @@ public interface MainPresenter extends BasePresenter<MainView> {
 
     void onSpinnerDateItemSelected(int position);
 
+    void onRefreshSwiped();
 }
