@@ -10,7 +10,7 @@ import com.innercirclesoftware.londair.airquality.AirQualityFragment;
 class ForecastViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private static final int TAB_COUNT = 2;
-    private SparseArray<AirQualityFragment> registeredFragments = new SparseArray<AirQualityFragment>();
+    private SparseArray<AirQualityFragment> registeredFragments = new SparseArray<>();
 
     ForecastViewPagerAdapter(FragmentManager fm) {
         super(fm);
