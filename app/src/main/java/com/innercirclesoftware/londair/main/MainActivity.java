@@ -3,6 +3,7 @@ package com.innercirclesoftware.londair.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.innercirclesoftware.londair.R;
+import com.innercirclesoftware.londair.airquality.CurrentForecast;
 import com.innercirclesoftware.londair.base.BaseActivity;
 
 import javax.inject.Inject;
@@ -24,6 +26,7 @@ public class MainActivity extends BaseActivity implements MainView {
     @BindView(R.id.date_spinner) AppCompatSpinner dateSpinner;
     @BindView(R.id.view_pager) ViewPager viewPager;
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
+    private ForecastViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,8 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void initViewPager() {
-        viewPager.setAdapter(new ForecastViewPagerAdapter(getSupportFragmentManager()));
+        viewPagerAdapter = new ForecastViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -79,6 +83,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
     private void initSwipeRefreshLayout() {
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefreshSwiped());
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
     }
 
     @Override
@@ -105,5 +110,15 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     public void selectSpinnerDate(int position) {
         dateSpinner.setSelection(position, true);
+    }
+
+    @Override
+    public void showForecast(int position, @NonNull CurrentForecast forecast) {
+        viewPagerAdapter.getFragment(position).setForecast(forecast);
+    }
+
+    @Override
+    public void setRefreshing(boolean refreshing) {
+        swipeRefreshLayout.setRefreshing(refreshing);
     }
 }

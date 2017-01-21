@@ -37,4 +37,9 @@ public class AirQualityFragment extends BaseFragment {
     public int getLayout() {
         return R.layout.fragment_air_quality;
     }
+
+    public void setForecast(@Nullable CurrentForecast forecast) {
+        this.forecast = forecast;
+        textView.setText(forecast.toString());
+    }
 }

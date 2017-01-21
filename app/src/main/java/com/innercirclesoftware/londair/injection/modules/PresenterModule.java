@@ -1,5 +1,8 @@
 package com.innercirclesoftware.londair.injection.modules;
 
+import android.support.annotation.NonNull;
+
+import com.innercirclesoftware.londair.airquality.TflService;
 import com.innercirclesoftware.londair.main.MainPresenter;
 import com.innercirclesoftware.londair.main.MainPresenterImpl;
 
@@ -10,7 +13,7 @@ import dagger.Provides;
 public class PresenterModule {
 
     @Provides
-    MainPresenter providesMainPresenter() {
-        return new MainPresenterImpl();
+    MainPresenter providesMainPresenter(@NonNull TflService tflService) {
+        return new MainPresenterImpl(tflService);
     }
 }
