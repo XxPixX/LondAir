@@ -32,4 +32,13 @@ public class MainPresenterImpl implements MainPresenter {
     public void onRefreshSwiped() {
 
     }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (view != null) {
+            view.selectSpinnerDate(position);
+        } else {
+            Timber.w("onPageSelected with position %s but the view is null", position);
+        }
+    }
 }

@@ -59,6 +59,22 @@ public class MainActivity extends BaseActivity implements MainView {
 
     private void initViewPager() {
         viewPager.setAdapter(new ForecastViewPagerAdapter(getSupportFragmentManager()));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                presenter.onPageSelected(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void initSwipeRefreshLayout() {
@@ -84,5 +100,10 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     public void showForecastFragment(int position) {
         viewPager.setCurrentItem(position, true);
+    }
+
+    @Override
+    public void selectSpinnerDate(int position) {
+        dateSpinner.setSelection(position, true);
     }
 }

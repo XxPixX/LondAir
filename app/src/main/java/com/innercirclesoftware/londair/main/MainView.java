@@ -6,4 +6,6 @@ public interface MainView extends BaseView {
 
     void showForecastFragment(int position);
 
+    void selectSpinnerDate(int position);
+
 }
