@@ -102,6 +102,7 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     protected void onSetActionBar(@NonNull ActionBar actionBar) {
         super.onSetActionBar(actionBar);
+        actionBar.setDisplayShowTitleEnabled(false);
     }
 
     @Override
