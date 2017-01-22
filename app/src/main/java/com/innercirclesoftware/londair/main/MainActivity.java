@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.airquality.CurrentForecast;
@@ -39,14 +38,8 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void initDateSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.forecast_dates,
-                R.layout.spinner_item
-        );
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dateSpinner.setAdapter(adapter);
+        ToolbarSpinnerAdapter spinnerAdapter = new ToolbarSpinnerAdapter(getApplicationContext());
+        dateSpinner.setAdapter(spinnerAdapter);
         dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

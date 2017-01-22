@@ -11,13 +11,15 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="">
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/date_spinner"
+            style="@style/ToolbarSpinnerStyle"
             android:layout_width="wrap_content"
             android:layout_height="?actionBarSize"
-            android:layout_marginLeft="32dp"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     </android.support.v7.widget.Toolbar>
 
