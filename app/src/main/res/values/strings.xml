@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LondAir</string>
+    <string name="app_name">Londair</string>
 
     <string name="pollutant_pm25">PM₂₅</string>
     <string name="pollutant_pm25_description">Fine particles: less than 2.5μm in diameter</string>
