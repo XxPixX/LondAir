@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatSpinner;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -94,6 +96,23 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     public int getLayout() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.refresh) {
+            swipeRefreshLayout.setRefreshing(true);
+            presenter.onRefreshSwiped();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

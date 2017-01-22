@@ -17,4 +17,5 @@
     <string name="pollutant_so3_name">Sulfur dioxide</string>
     <string name="refreshed">Refreshed!</string>
     <string name="no_internet_connection">No internet connection!</string>
+    <string name="refresh">Refresh</string>
 </resources>
