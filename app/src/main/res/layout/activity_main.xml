@@ -7,21 +7,27 @@
     android:layout_height="match_parent"
     tools:context="com.innercirclesoftware.londair.main.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="">
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/date_spinner"
-            style="@style/ToolbarSpinnerStyle"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-    </android.support.v7.widget.Toolbar>
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/date_spinner"
+                style="@style/ToolbarSpinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="?actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"

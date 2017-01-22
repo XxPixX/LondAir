@@ -45,6 +45,8 @@ dependencies {
 
     compile "com.android.support:cardview-v7:${version.support}"
     compile "com.android.support:appcompat-v7:${version.support}"
+    compile "com.android.support:design:${version.support}"
+
 
     //butterknife
     compile "com.jakewharton:butterknife:${version.butterknife}"
