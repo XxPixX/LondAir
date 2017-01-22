@@ -73,7 +73,9 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
     @Override
     public void showForecast(@NonNull CurrentForecast forecast) {
-        forecastText.setText(Html.fromHtml(forecast.getForecastText()));
+        String text = Html.fromHtml(forecast.getForecastText()).toString();
+        String lineSep = System.getProperty("line.separator");
+        forecastText.setText(text.replaceAll("<br/>", lineSep).trim());
 
         summaryPm25.setText(forecast.getPM25Band());
         summaryPm10.setText(forecast.getPM10Band());
