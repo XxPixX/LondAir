@@ -1,9 +1,11 @@
 package com.innercirclesoftware.londair.base;
 
-import android.support.annotation.StringRes;
+import android.support.annotation.NonNull;
+
+import com.innercirclesoftware.londair.ui.Message;
 
 public interface BaseView {
 
-    String getString(@StringRes int stringRes);
+    void showMessage(@NonNull Message message);
 
 }

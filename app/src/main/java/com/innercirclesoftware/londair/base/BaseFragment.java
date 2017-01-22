@@ -1,6 +1,7 @@
 package com.innercirclesoftware.londair.base;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,11 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
+import com.innercirclesoftware.londair.ui.Message;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseFragment extends Fragment implements Layoutable {
+public abstract class BaseFragment extends Fragment implements Layoutable, BaseView {
 
     @Nullable private Unbinder unbinder;
 
@@ -40,5 +42,10 @@ public abstract class BaseFragment extends Fragment implements Layoutable {
 
     protected ApplicationComponent getComponent() {
         return getBaseActivity().getComponent();
+    }
+
+    @Override
+    public void showMessage(@NonNull Message message) {
+        getBaseActivity().showMessage(message);
     }
 }

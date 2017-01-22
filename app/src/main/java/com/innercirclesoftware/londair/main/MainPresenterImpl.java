@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.innercirclesoftware.londair.airquality.Air;
 import com.innercirclesoftware.londair.airquality.CurrentForecast;
 import com.innercirclesoftware.londair.airquality.TflService;
+import com.innercirclesoftware.londair.ui.Message;
 
 import javax.inject.Inject;
 
@@ -34,12 +35,16 @@ public class MainPresenterImpl implements MainPresenter {
                 view.showForecast(0, todaysForecast);
                 view.showForecast(1, tomorrowsForecast);
                 view.setRefreshing(false);
+                view.showMessage(Message.REFRESHED);
             }
         }
 
         @Override
         public void onFailure(Call<Air> call, Throwable t) {
-            if (view != null) view.setRefreshing(false);
+            if (view != null) {
+                view.showMessage(Message.NO_INTERNET);
+                view.setRefreshing(false);
+            }
         }
     };
 

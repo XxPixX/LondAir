@@ -3,6 +3,8 @@ package com.innercirclesoftware.londair.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.airquality.CurrentForecast;
@@ -25,6 +28,7 @@ public class MainActivity extends BaseActivity implements MainView {
     @BindView(R.id.date_spinner) AppCompatSpinner dateSpinner;
     @BindView(R.id.view_pager) ViewPager viewPager;
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.container) CoordinatorLayout coordinatorLayout;
     private ForecastViewPagerAdapter viewPagerAdapter;
 
     @Override
@@ -96,6 +100,11 @@ public class MainActivity extends BaseActivity implements MainView {
     protected void onSetActionBar(@NonNull ActionBar actionBar) {
         super.onSetActionBar(actionBar);
         actionBar.setDisplayShowTitleEnabled(false);
+    }
+
+    @Override
+    public void showSnackbar(String message) {
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
