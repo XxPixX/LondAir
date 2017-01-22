@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ public class AirQualityFragment extends BaseFragment {
     @BindView(R.id.summary_no2) TextView summaryNo2;
     @BindView(R.id.summary_o3) TextView summaryO3;
     @BindView(R.id.summary_so2) TextView summarySo2;
+
+    @BindView(R.id.forecast_text) TextView forecastText;
 
     @BindColor(R.color.card_high) int cardColorHigh;
     @BindColor(R.color.card_medium) int cardColorMedium;
@@ -85,13 +88,14 @@ public class AirQualityFragment extends BaseFragment {
         this.forecast = forecast;
         updatePollutionSummary();
         updatePollutantsSummaries();
+        updateForecastText();
     }
 
     private void updatePollutionSummary() {
         if (forecast == null) return;
         forecastBand.setText(forecast.getForecastBand());
         forecastSummary.setText(forecast.getForecastSummary());
-        int cardColour = cardPollutionSummary.getCardBackgroundColor().getDefaultColor();
+        int cardColour;
         switch (forecast.getForecastBand()) {
             case "High":
                 cardColour = cardColorHigh;
@@ -118,5 +122,9 @@ public class AirQualityFragment extends BaseFragment {
         summaryNo2.setText(forecast.getNO2Band());
         summaryO3.setText(forecast.getO3Band());
         summarySo2.setText(forecast.getSO2Band());
+    }
+
+    private void updateForecastText() {
+        forecastText.setText(Html.fromHtml(forecast.getForecastText()));
     }
 }
