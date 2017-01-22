@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -30,5 +32,13 @@ public abstract class BaseFragment extends Fragment implements Layoutable {
     public void onDestroyView() {
         super.onDestroyView();
         if (unbinder != null) unbinder.unbind();
+    }
+
+    protected BaseActivity getBaseActivity() {
+        return (BaseActivity) getActivity();
+    }
+
+    protected ApplicationComponent getComponent() {
+        return getBaseActivity().getComponent();
     }
 }

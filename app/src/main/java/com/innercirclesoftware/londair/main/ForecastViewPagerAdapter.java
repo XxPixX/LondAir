@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import com.innercirclesoftware.londair.airquality.AirQualityFragment;
+import com.innercirclesoftware.londair.airquality.ui.AirQualityFragment;
 
 class ForecastViewPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -18,7 +18,7 @@ class ForecastViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public AirQualityFragment getItem(int position) {
-        return AirQualityFragment.newInstance(null);
+        return new AirQualityFragment();
     }
 
     @Override

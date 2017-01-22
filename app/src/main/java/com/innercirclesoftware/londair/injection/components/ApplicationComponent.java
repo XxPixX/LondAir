@@ -1,5 +1,6 @@
 package com.innercirclesoftware.londair.injection.components;
 
+import com.innercirclesoftware.londair.airquality.ui.AirQualityFragment;
 import com.innercirclesoftware.londair.injection.modules.AndroidModule;
 import com.innercirclesoftware.londair.injection.modules.NetworkModule;
 import com.innercirclesoftware.londair.injection.modules.PresenterModule;
@@ -18,4 +19,6 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     void inject(MainActivity activity);
+
+    void inject(AirQualityFragment fragment);
 }

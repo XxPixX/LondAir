@@ -1,12 +1,9 @@
 package com.innercirclesoftware.londair.airquality;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CurrentForecast implements Parcelable {
+public class CurrentForecast{
 
     @SerializedName("$id")
     @Expose
@@ -158,53 +155,4 @@ public class CurrentForecast implements Parcelable {
                 ", forecastText='" + forecastText + '\'' +
                 '}';
     }
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.$id);
-        dest.writeString(this.$type);
-        dest.writeString(this.forecastType);
-        dest.writeString(this.forecastID);
-        dest.writeString(this.forecastBand);
-        dest.writeString(this.forecastSummary);
-        dest.writeString(this.nO2Band);
-        dest.writeString(this.o3Band);
-        dest.writeString(this.pM10Band);
-        dest.writeString(this.pM25Band);
-        dest.writeString(this.sO2Band);
-        dest.writeString(this.forecastText);
-    }
-
-    private CurrentForecast(Parcel in) {
-        this.$id = in.readString();
-        this.$type = in.readString();
-        this.forecastType = in.readString();
-        this.forecastID = in.readString();
-        this.forecastBand = in.readString();
-        this.forecastSummary = in.readString();
-        this.nO2Band = in.readString();
-        this.o3Band = in.readString();
-        this.pM10Band = in.readString();
-        this.pM25Band = in.readString();
-        this.sO2Band = in.readString();
-        this.forecastText = in.readString();
-    }
-
-    public static final Parcelable.Creator<CurrentForecast> CREATOR = new Parcelable.Creator<CurrentForecast>() {
-        @Override
-        public CurrentForecast createFromParcel(Parcel source) {
-            return new CurrentForecast(source);
-        }
-
-        @Override
-        public CurrentForecast[] newArray(int size) {
-            return new CurrentForecast[size];
-        }
-    };
 }
