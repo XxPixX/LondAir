@@ -5,7 +5,14 @@
     <color name="colorAccent">@color/cyan_a400</color>
 
     <color name="cyan_a400">#00E5FF</color>
-    <color name="grey_900">#212121</color>
     <color name="white">#FFF</color>
+    <color name="black">#000</color>
+
+    <color name="card_high">#b63346</color>
+    <color name="card_medium">#f5d325</color>
+    <color name="card_low">#33b679</color>
+
+    <color name="window_background">#1b1b1b</color>
+    <color name="status_bar_background">#101010</color>
 
 </resources>

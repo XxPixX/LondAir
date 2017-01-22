@@ -1,13 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="test"/>
+        android:orientation="vertical">
 
-</LinearLayout>
+        <android.support.v7.widget.CardView
+            style="@style/Card"
+            android:id="@+id/card_pollution_summary"
+            app:cardBackgroundColor="@color/card_high">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp">
+
+                <TextView
+                    android:id="@+id/forecast_band"
+                    style="@style/CardTitle"/>
+
+                <TextView
+                    android:id="@+id/forecast_summary"
+                    style="@style/CardDescription"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            style="@style/Card"
+            android:layout_width="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/pm_25_title"
+                    style="@style/MiniCardTitle"
+                    android:text="@string/pollutant_pm25"/>
+
+                <TextView
+                    android:id="@+id/pm_25_subtitle"
+                    style="@style/MiniCardSubtitle"
+                    android:layout_below="@id/pm_25_title"
+                    android:layout_toLeftOf="@+id/summary_pm25"
+                    android:text="@string/pollutant_pm25_description"/>
+
+                <TextView
+                    android:id="@+id/summary_pm25"
+                    style="@style/MiniCardSummary"
+                    android:layout_alignBottom="@id/pm_25_subtitle"
+                    android:layout_alignTop="@id/pm_25_title"/>
+
+                <TextView
+                    android:id="@+id/pm_10_title"
+                    style="@style/MiniCardTitle"
+                    android:layout_below="@id/pm_25_subtitle"
+                    android:text="@string/pollutant_pm10"/>
+
+                <TextView
+                    android:id="@+id/pm_10_subtitle"
+                    style="@style/MiniCardSubtitle"
+                    android:layout_below="@id/pm_10_title"
+                    android:layout_toLeftOf="@+id/summary_pm10"
+                    android:text="@string/pollutant_pm10_description"/>
+
+                <TextView
+                    android:id="@+id/summary_pm10"
+                    style="@style/MiniCardSummary"
+                    android:layout_alignBottom="@id/pm_10_subtitle"
+                    android:layout_alignTop="@id/pm_10_title"/>
+
+                <TextView
+                    android:id="@+id/no3_title"
+                    style="@style/MiniCardTitle"
+                    android:layout_below="@id/pm_10_subtitle"
+                    android:text="@string/pollutant_no2"/>
+
+                <TextView
+                    android:id="@+id/no3_subtitle"
+                    style="@style/MiniCardSubtitle"
+                    android:layout_below="@id/no3_title"
+                    android:layout_toLeftOf="@+id/summary_no2"
+                    android:text="@string/pollutant_no2_name"/>
+
+                <TextView
+                    android:id="@+id/summary_no2"
+                    style="@style/MiniCardSummary"
+                    android:layout_alignBottom="@id/no3_subtitle"
+                    android:layout_alignTop="@id/no3_title"/>
+
+                <TextView
+                    android:id="@+id/o3_title"
+                    style="@style/MiniCardTitle"
+                    android:layout_below="@id/no3_subtitle"
+                    android:text="@string/pollutant_o3"/>
+
+                <TextView
+                    android:id="@+id/o3_subtitle"
+                    style="@style/MiniCardSubtitle"
+                    android:layout_below="@id/o3_title"
+                    android:layout_toLeftOf="@+id/summary_o3"
+                    android:text="@string/pollutant_o3_name"/>
+
+                <TextView
+                    android:id="@+id/summary_o3"
+                    style="@style/MiniCardSummary"
+                    android:layout_alignBottom="@id/o3_subtitle"
+                    android:layout_alignTop="@id/o3_title"/>
+
+                <TextView
+                    android:id="@+id/so2_title"
+                    style="@style/MiniCardTitle"
+                    android:layout_below="@id/o3_subtitle"
+                    android:text="@string/pollutant_so3"/>
+
+                <TextView
+                    android:id="@+id/so2_subtitle"
+                    style="@style/MiniCardSubtitle"
+                    android:layout_below="@id/so2_title"
+                    android:layout_toLeftOf="@+id/summary_so2"
+                    android:text="@string/pollutant_so3_name"/>
+
+                <TextView
+                    android:id="@+id/summary_so2"
+                    style="@style/MiniCardSummary"
+                    android:layout_alignBottom="@id/so2_subtitle"
+                    android:layout_alignTop="@id/so2_title"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>
