@@ -22,9 +22,31 @@ public class MainPresenterImpl implements MainPresenter {
     @NonNull
     TflService tflService;
 
+    @NonNull
+    private Callback<Air> airCallback = new Callback<Air>() {
+        @Override
+        public void onResponse(Call<Air> call, Response<Air> response) {
+            Air air = response.body();
+            CurrentForecast todaysForecast = air.getCurrentForecast().get(0);
+            CurrentForecast tomorrowsForecast = air.getCurrentForecast().get(1);
+
+            if (view != null) {
+                view.showForecast(0, todaysForecast);
+                view.showForecast(1, tomorrowsForecast);
+                view.setRefreshing(false);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Air> call, Throwable t) {
+            if (view != null) view.setRefreshing(false);
+        }
+    };
+
     @Inject
     public MainPresenterImpl(@NonNull TflService tflService) {
         this.tflService = tflService;
+        this.tflService.getAirQuality().enqueue(airCallback);
     }
 
     @Override
@@ -48,27 +70,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onRefreshSwiped() {
-        tflService.getAirQuality().enqueue(new Callback<Air>() {
-            @Override
-            public void onResponse(Call<Air> call, Response<Air> response) {
-                Air air = response.body();
-                CurrentForecast todaysForecast = air.getCurrentForecast().get(0);
-                CurrentForecast tomorrowsForecast = air.getCurrentForecast().get(1);
-
-                if (view != null) {
-                    view.showForecast(0, todaysForecast);
-                    view.showForecast(1, tomorrowsForecast);
-                    view.setRefreshing(false);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Air> call, Throwable t) {
-                if (view != null) {
-                    view.setRefreshing(false);
-                }
-            }
-        });
+        tflService.getAirQuality().enqueue(airCallback);
     }
 
     @Override
