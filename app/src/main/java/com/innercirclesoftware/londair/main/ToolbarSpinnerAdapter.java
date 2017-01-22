@@ -2,6 +2,7 @@ package com.innercirclesoftware.londair.main;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ class ToolbarSpinnerAdapter extends BaseAdapter {
 
         TextView textView = (TextView) view.findViewById(android.R.id.text1);
         textView.setText(getTitle(position));
+        textView.setTextColor(ContextCompat.getColor(context, android.R.color.primary_text_light));
 
         return view;
     }
