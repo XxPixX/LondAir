@@ -3,6 +3,7 @@ package com.innercirclesoftware.londair.main;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.airquality.Air;
 import com.innercirclesoftware.londair.airquality.CurrentForecast;
 import com.innercirclesoftware.londair.airquality.TflService;
@@ -27,15 +28,26 @@ public class MainPresenterImpl implements MainPresenter {
     private Callback<Air> airCallback = new Callback<Air>() {
         @Override
         public void onResponse(Call<Air> call, Response<Air> response) {
-            Air air = response.body();
-            CurrentForecast todaysForecast = air.getCurrentForecast().get(0);
-            CurrentForecast tomorrowsForecast = air.getCurrentForecast().get(1);
+            if (response.isSuccessful()) {
+                Air air = response.body();
+                CurrentForecast todaysForecast = air.getCurrentForecast().get(0);
+                CurrentForecast tomorrowsForecast = air.getCurrentForecast().get(1);
 
-            if (view != null) {
-                view.showForecast(0, todaysForecast);
-                view.showForecast(1, tomorrowsForecast);
-                view.setRefreshing(false);
-                view.showMessage(Message.REFRESHED);
+                if (view != null) {
+                    view.showForecast(0, todaysForecast);
+                    view.showForecast(1, tomorrowsForecast);
+                    view.setRefreshing(false);
+                    view.showMessage(Message.REFRESHED);
+                }
+            } else {
+                Timber.w("Unsuccessful response: body = %s,\ncode=%s\nerrorBody=%s",
+                        response.body(),
+                        response.code(),
+                        response.errorBody()
+                );
+
+                if (view != null) view.showMessage(new Message(R.string.error, response.message()));
+                Timber.w("Unsuccessful response with null view");
             }
         }
 

@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.airquality.CurrentForecast;

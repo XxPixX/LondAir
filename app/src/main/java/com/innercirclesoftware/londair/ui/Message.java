@@ -1,3 +1,30 @@
 package com.innercirclesoftware.londair.ui;
 
-public enum Message {REFRESHED, NO_INTERNET}
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+
+import com.innercirclesoftware.londair.R;
+
+public class Message {
+
+    public static final Message REFRESHED = new Message(R.string.refreshed);
+    public static final Message NO_INTERNET = new Message(R.string.no_internet_connection);
+
+    @StringRes private final int stringRes;
+    @NonNull private final String[] arguments;
+
+    public Message(@StringRes int stringRes, @NonNull String... arguments) {
+        this.stringRes = stringRes;
+        this.arguments = arguments;
+    }
+
+    @StringRes
+    public int getStringRes() {
+        return stringRes;
+    }
+
+    @NonNull
+    public String[] getArguments() {
+        return arguments;
+    }
+}
