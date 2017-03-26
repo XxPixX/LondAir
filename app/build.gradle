@@ -19,7 +19,7 @@ repositories {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.innercirclesoftware.londair"
         minSdkVersion 21
@@ -42,9 +42,12 @@ android {
 }
 
 def version = ext.version = [
-        support    : "25.1.0",
-        dagger     : "2.7",
-        butterknife: "8.4.0"
+        support          : "25.3.0",
+        dagger           : "2.7",
+        butterknife      : "8.5.1",
+        retrofit         : "2.1.0",
+        okhttpinterceptor: "1.0.2",
+        leak_canary      : "1.5"
 ];
 
 dependencies {
@@ -54,10 +57,10 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
+    //support
     compile "com.android.support:cardview-v7:${version.support}"
     compile "com.android.support:appcompat-v7:${version.support}"
     compile "com.android.support:design:${version.support}"
-
 
     //butterknife
     compile "com.jakewharton:butterknife:${version.butterknife}"
@@ -69,7 +72,7 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
 
     //retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile "com.squareup.retrofit2:retrofit:${version.retrofit}"
 
     //gson
     compile 'com.google.code.gson:gson:2.8.0'
@@ -84,4 +87,13 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
         transitive = true;
     }
+
+    //okhttp notification interceptor
+    debugCompile "com.readystatesoftware.chuck:library:${version.okhttpinterceptor}"
+    releaseCompile "com.readystatesoftware.chuck:library-no-op:${version.okhttpinterceptor}"
+
+    //leak canary
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${version.leak_canary}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${version.leak_canary}"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${version.leak_canary}"
 }
