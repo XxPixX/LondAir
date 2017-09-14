@@ -7,7 +7,7 @@
         android:slideEdge="bottom"/>
 
     <fade
-        android:duration="600"
+        android:duration="800"
         android:fadingMode="fade_in"/>
 
 </transitionSet>
