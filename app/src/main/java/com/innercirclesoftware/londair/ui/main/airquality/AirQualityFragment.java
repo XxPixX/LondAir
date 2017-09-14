@@ -14,9 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.innercirclesoftware.londair.R;
-import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
 import com.innercirclesoftware.londair.base.BaseFragment;
+import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
 import com.innercirclesoftware.londair.ui.main.MainActivity;
+import com.innercirclesoftware.londair.ui.main.MainComponent;
+import com.innercirclesoftware.londair.ui.main.MainPresenter;
 
 import javax.inject.Inject;
 
@@ -27,7 +29,9 @@ import timber.log.Timber;
 public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
     private static final String ARG_KEY_POSITION = "ARG_KEY_POSITION";
+
     @Inject AirQualityPresenter presenter;
+    @Inject MainPresenter mainPresenter;
 
     @BindView(R.id.container) LinearLayout container;
 
@@ -65,26 +69,26 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getComponent().inject(this);
+        inject();
         registerPresenter(presenter);
-        int position = getArguments().getInt(ARG_KEY_POSITION);
-        MainActivity mainActivity = (MainActivity) getBaseActivity();
-        if (position == 0) {
-            CurrentForecast todaysForecast = mainActivity.getTodaysForecast();
-            if (todaysForecast != null) setForecast(todaysForecast);
-        } else {
-            CurrentForecast tomorrowsForecast = mainActivity.getTomorrowsForecast();
-            if (tomorrowsForecast != null) setForecast(tomorrowsForecast);
-        }
+
+        int position = getArguments().getInt(ARG_KEY_POSITION, -1); //-1 is an impossible position, don't want it to default to 0
+        if (position == 0) mainPresenter.attachTodaysView(this);
+        else if (position == 1) mainPresenter.attachTomorrowsView(this);
+        else Timber.w("Unknown position %s in AirQualityFragment extras", position);
+    }
+
+    private void inject() {
+        DaggerAirQualityComponent.builder().mainComponent(getMainComponent()).build().inject(this);
+    }
+
+    private MainComponent getMainComponent() {
+        return ((MainActivity) getBaseActivity()).getMainComponent();
     }
 
     @Override
     public int getLayout() {
         return R.layout.fragment_air_quality;
-    }
-
-    public void setForecast(@Nullable CurrentForecast forecast) {
-        presenter.onForecastRefreshed(forecast);
     }
 
     @Override
@@ -132,8 +136,7 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     }
 
     @Override
-    public void hideForecast() {
-        TransitionManager.beginDelayedTransition(container);
-        container.setVisibility(View.INVISIBLE);
+    public void onShowForecastRequested(@NonNull CurrentForecast forecast) {
+        presenter.onShowForecastRequested(forecast);
     }
 }

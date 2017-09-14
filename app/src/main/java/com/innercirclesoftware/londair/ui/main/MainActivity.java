@@ -3,7 +3,6 @@ package com.innercirclesoftware.londair.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,8 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.innercirclesoftware.londair.R;
-import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
-import com.innercirclesoftware.londair.ui.main.airquality.AirQualityFragment;
 import com.innercirclesoftware.londair.base.BaseActivity;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 
@@ -30,9 +27,7 @@ public class MainActivity extends BaseActivity implements MainView {
     @BindView(R.id.date_spinner) AppCompatSpinner dateSpinner;
     @BindView(R.id.view_pager) ViewPager viewPager;
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
-    private ForecastViewPagerAdapter viewPagerAdapter;
-    @Nullable private CurrentForecast todaysForecast;
-    @Nullable private CurrentForecast tomorrowsForecast;
+    private MainComponent mainComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +40,8 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     protected void inject(@NonNull ApplicationComponent applicationComponent) {
-        applicationComponent.inject(this);
+        mainComponent = DaggerMainComponent.builder().applicationComponent(applicationComponent).build();
+        mainComponent.inject(this);
     }
 
     private void initDateSpinner() {
@@ -65,7 +61,7 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void initViewPager() {
-        viewPagerAdapter = new ForecastViewPagerAdapter(getSupportFragmentManager());
+        ForecastViewPagerAdapter viewPagerAdapter = new ForecastViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -131,31 +127,11 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
-    public void showForecast(int position, @NonNull CurrentForecast forecast) {
-        AirQualityFragment fragment = viewPagerAdapter.getFragment(position);
-
-        if (fragment != null) {
-            fragment.setForecast(forecast);
-            if (position == 0) this.todaysForecast = null;
-            else this.tomorrowsForecast = null;
-        } else {
-            if (position == 0) this.todaysForecast = forecast;
-            else this.tomorrowsForecast = forecast;
-        }
-    }
-
-    @Nullable
-    public CurrentForecast getTodaysForecast() {
-        return todaysForecast;
-    }
-
-    @Nullable
-    public CurrentForecast getTomorrowsForecast() {
-        return tomorrowsForecast;
-    }
-
-    @Override
     public void setRefreshing(boolean refreshing) {
         swipeRefreshLayout.setRefreshing(refreshing);
+    }
+
+    public MainComponent getMainComponent() {
+        return mainComponent;
     }
 }

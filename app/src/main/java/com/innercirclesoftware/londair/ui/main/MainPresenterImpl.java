@@ -4,26 +4,31 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.innercirclesoftware.londair.R;
+import com.innercirclesoftware.londair.data.tfl.Air;
 import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
 import com.innercirclesoftware.londair.data.tfl.TflService;
 import com.innercirclesoftware.londair.ui.Message;
+import com.innercirclesoftware.londair.ui.main.airquality.AirQualityView;
 import com.innercirclesoftware.londair.utils.RxUtils;
-
-import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-public class MainPresenterImpl implements MainPresenter {
+class MainPresenterImpl implements MainPresenter {
 
     @Nullable private MainView view;
+
+    @Nullable private AirQualityView todaysView;
+    @Nullable private AirQualityView tomorrowsView;
+
+    @Nullable private CurrentForecast todaysForecast;
+    @Nullable private CurrentForecast tomorrowsForecast;
 
     @NonNull private TflService tflService;
     @Nullable private Disposable forecastFetcher;
 
-    @Inject
-    public MainPresenterImpl(@NonNull TflService tflService) {
+    MainPresenterImpl(@NonNull TflService tflService) {
         this.tflService = tflService;
         fetchForecast();
     }
@@ -33,6 +38,18 @@ public class MainPresenterImpl implements MainPresenter {
         Timber.v("Attaching view %s to %s", view, this);
         this.view = view;
         view.setRefreshing(RxUtils.isRunning(forecastFetcher));
+    }
+
+    @Override
+    public void attachTodaysView(@NonNull AirQualityView todaysView) {
+        Timber.v("Attaching todays view %s to %s", todaysView, this);
+        this.todaysView = todaysView;
+    }
+
+    @Override
+    public void attachTomorrowsView(@NonNull AirQualityView tomorrowsView) {
+        Timber.v("Attaching tomorrows view %s to %s", tomorrowsView, this);
+        this.tomorrowsView = tomorrowsView;
     }
 
     @Override
@@ -47,6 +64,7 @@ public class MainPresenterImpl implements MainPresenter {
         RxUtils.dispose(forecastFetcher);
         forecastFetcher = null;
     }
+
 
     @Override
     public void onSpinnerDateItemSelected(int position) {
@@ -82,13 +100,20 @@ public class MainPresenterImpl implements MainPresenter {
                         view.setRefreshing(false);
                     }
                 })
-                .subscribe(air -> {
-                    CurrentForecast todaysForecast = air.getCurrentForecast().get(0);
-                    CurrentForecast tomorrowsForecast = air.getCurrentForecast().get(1);
+                .map(Air::getCurrentForecast)
+                .subscribe(forecasts -> {
+                    this.todaysForecast = forecasts.get(0);
+                    this.tomorrowsForecast = forecasts.get(1);
+
+                    //todo add timer message if it isn't null
+                    //TODO add null check
+                    if (todaysView != null) todaysView.onShowForecastRequested(todaysForecast);
+                    else Timber.i("Fetched todays forecast but the today view hasn't been attached yet");
+
+                    if (tomorrowsView != null) tomorrowsView.onShowForecastRequested(tomorrowsForecast);
+                    else Timber.i("Fetched tomorrows forecast but the tomorrow view hasn't been attached yet");
 
                     if (view != null) {
-                        view.showForecast(0, todaysForecast);
-                        view.showForecast(1, tomorrowsForecast);
                         view.setRefreshing(false);
                         view.showMessage(Message.REFRESHED);
                     }
