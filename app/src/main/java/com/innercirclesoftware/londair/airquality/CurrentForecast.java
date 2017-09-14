@@ -3,7 +3,12 @@ package com.innercirclesoftware.londair.airquality;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CurrentForecast{
+public class CurrentForecast {
+
+    public static final String BAND_HIGH = "High";
+    public static final String BAND_MODERATE = "Moderate";
+    public static final String BAND_LOW = "Low";
+    public static final String BAND_NONE = "None";
 
     @SerializedName("$id")
     @Expose
@@ -74,6 +79,7 @@ public class CurrentForecast{
         this.forecastID = forecastID;
     }
 
+    @ForecastBand
     public String getForecastBand() {
         return forecastBand;
     }

@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import butterknife.BindColor;
 import butterknife.BindView;
+import timber.log.Timber;
 
 public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
@@ -45,6 +46,7 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     @BindColor(R.color.card_high) int cardColorHigh;
     @BindColor(R.color.card_medium) int cardColorMedium;
     @BindColor(R.color.card_low) int cardColorLow;
+    @BindColor(R.color.card_none) int cardColorNone;
 
     @BindColor(android.R.color.primary_text_dark) int whiteTextTitleColour;
     @BindColor(android.R.color.secondary_text_dark) int whiteTextSubtitleColour;
@@ -108,17 +110,22 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
         forecastSummary.setText(forecast.getForecastSummary());
         int cardColour;
         switch (forecast.getForecastBand()) {
-            case "High":
+            case CurrentForecast.BAND_HIGH:
                 cardColour = cardColorHigh;
                 break;
-            case "Moderate":
+            case CurrentForecast.BAND_MODERATE:
                 cardColour = cardColorMedium;
                 break;
-            case "Low":
+            case CurrentForecast.BAND_LOW:
                 cardColour = cardColorLow;
                 break;
+            case CurrentForecast.BAND_NONE:
+                cardColour = cardColorNone;
+                break;
             default:
+                Timber.w("Unknown forecast band %s when determining appropriate card color", forecast.getForecastBand());
                 cardColour = Color.RED;
+                break;
         }
 
         if (cardColour != cardPollutionSummary.getCardBackgroundColor().getDefaultColor()) {

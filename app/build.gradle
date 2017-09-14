@@ -18,12 +18,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.innercirclesoftware.londair"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -42,12 +42,12 @@ android {
 }
 
 def version = ext.version = [
-        support          : "25.3.0",
-        dagger           : "2.7",
-        butterknife      : "8.5.1",
-        retrofit         : "2.1.0",
-        okhttpinterceptor: "1.0.2",
-        leak_canary      : "1.5"
+        support          : "26.0.1",
+        dagger           : "2.11",
+        butterknife      : "8.6.0",
+        retrofit         : "2.3.0",
+        okhttpinterceptor: "1.0.4",
+        leak_canary      : "1.5.1"
 ];
 
 dependencies {
