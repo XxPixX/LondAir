@@ -1,9 +1,9 @@
-package com.innercirclesoftware.londair.preferences.ui;
+package com.innercirclesoftware.londair.ui.settings;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.innercirclesoftware.londair.preferences.PreferenceManager;
+import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
 import com.innercirclesoftware.londair.utils.RxUtils;
 
 import java.text.DateFormat;

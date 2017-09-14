@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.preferences.ui;
+package com.innercirclesoftware.londair.ui.settings;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

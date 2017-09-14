@@ -1,12 +1,12 @@
-package com.innercirclesoftware.londair.main;
+package com.innercirclesoftware.londair.ui.main;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.innercirclesoftware.londair.R;
-import com.innercirclesoftware.londair.airquality.Air;
-import com.innercirclesoftware.londair.airquality.CurrentForecast;
-import com.innercirclesoftware.londair.airquality.TflService;
+import com.innercirclesoftware.londair.data.tfl.Air;
+import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
+import com.innercirclesoftware.londair.data.tfl.TflService;
 import com.innercirclesoftware.londair.ui.Message;
 
 import javax.inject.Inject;

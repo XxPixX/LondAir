@@ -15,7 +15,7 @@ import android.view.View;
 import com.innercirclesoftware.londair.LondAir;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
-import com.innercirclesoftware.londair.preferences.ui.SettingsActivity;
+import com.innercirclesoftware.londair.ui.settings.SettingsActivity;
 import com.innercirclesoftware.londair.ui.Message;
 
 import butterknife.BindView;

@@ -2,11 +2,11 @@ package com.innercirclesoftware.londair.injection.modules;
 
 import android.support.annotation.NonNull;
 
-import com.innercirclesoftware.londair.airquality.TflService;
-import com.innercirclesoftware.londair.airquality.ui.AirQualityPresenter;
-import com.innercirclesoftware.londair.airquality.ui.AirQualityPresenterImpl;
-import com.innercirclesoftware.londair.main.MainPresenter;
-import com.innercirclesoftware.londair.main.MainPresenterImpl;
+import com.innercirclesoftware.londair.data.tfl.TflService;
+import com.innercirclesoftware.londair.ui.main.airquality.AirQualityPresenter;
+import com.innercirclesoftware.londair.ui.main.airquality.AirQualityPresenterImpl;
+import com.innercirclesoftware.londair.ui.main.MainPresenter;
+import com.innercirclesoftware.londair.ui.main.MainPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;

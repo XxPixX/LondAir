@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.main;
+package com.innercirclesoftware.londair.ui.main;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import com.innercirclesoftware.londair.airquality.ui.AirQualityFragment;
+import com.innercirclesoftware.londair.ui.main.airquality.AirQualityFragment;
 
 class ForecastViewPagerAdapter extends FragmentStatePagerAdapter {
 

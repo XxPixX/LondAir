@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.main;
+package com.innercirclesoftware.londair.ui.main;
 
 import com.innercirclesoftware.londair.base.BasePresenter;
 

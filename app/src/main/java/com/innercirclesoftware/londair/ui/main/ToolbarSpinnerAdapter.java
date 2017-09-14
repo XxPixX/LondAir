@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.main;
+package com.innercirclesoftware.londair.ui.main;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

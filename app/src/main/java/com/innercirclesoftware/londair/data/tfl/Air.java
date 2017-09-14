@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.airquality;
+package com.innercirclesoftware.londair.data.tfl;
 
 
 import java.util.List;

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.crashlytics.android.Crashlytics;
-import com.innercirclesoftware.londair.airquality.TflService;
+import com.innercirclesoftware.londair.data.tfl.TflService;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 import com.innercirclesoftware.londair.injection.components.DaggerApplicationComponent;
 import com.innercirclesoftware.londair.injection.modules.AndroidModule;

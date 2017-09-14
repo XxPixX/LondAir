@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
-import com.innercirclesoftware.londair.preferences.PreferenceManager;
-import com.innercirclesoftware.londair.preferences.PreferenceManagerImpl;
+import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
+import com.innercirclesoftware.londair.data.preferences.PreferenceManagerImpl;
 
 import javax.inject.Singleton;
 

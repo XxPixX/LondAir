@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.preferences;
+package com.innercirclesoftware.londair.data.preferences;
 
 import android.content.SharedPreferences;
 import android.support.annotation.IntRange;

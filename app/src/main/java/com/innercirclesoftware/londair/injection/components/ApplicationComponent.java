@@ -1,15 +1,15 @@
 package com.innercirclesoftware.londair.injection.components;
 
 import com.innercirclesoftware.londair.LondAir;
-import com.innercirclesoftware.londair.airquality.ui.AirQualityFragment;
+import com.innercirclesoftware.londair.ui.main.airquality.AirQualityFragment;
 import com.innercirclesoftware.londair.injection.modules.AndroidModule;
 import com.innercirclesoftware.londair.injection.modules.NetworkModule;
 import com.innercirclesoftware.londair.injection.modules.NotificationModule;
 import com.innercirclesoftware.londair.injection.modules.PreferencesModule;
 import com.innercirclesoftware.londair.injection.modules.PresenterModule;
-import com.innercirclesoftware.londair.main.MainActivity;
+import com.innercirclesoftware.londair.ui.main.MainActivity;
 import com.innercirclesoftware.londair.notifications.ForecastNotificationService;
-import com.innercirclesoftware.londair.preferences.PreferenceManager;
+import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
 
 import javax.inject.Singleton;
 

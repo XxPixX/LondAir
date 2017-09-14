@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.preferences.ui;
+package com.innercirclesoftware.londair.ui.settings;
 
 import android.support.annotation.NonNull;
 import android.widget.TextView;
@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.base.BaseActivity;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
+import com.innercirclesoftware.londair.data.preferences.ui.DaggerSettingsComponent;
 
 import javax.inject.Inject;
 

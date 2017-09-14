@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.preferences.ui;
+package com.innercirclesoftware.londair.ui.settings;
 
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 

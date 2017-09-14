@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.main;
+package com.innercirclesoftware.londair.ui.main;
 
 
 import android.os.Bundle;
@@ -15,8 +15,8 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.innercirclesoftware.londair.R;
-import com.innercirclesoftware.londair.airquality.CurrentForecast;
-import com.innercirclesoftware.londair.airquality.ui.AirQualityFragment;
+import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
+import com.innercirclesoftware.londair.ui.main.airquality.AirQualityFragment;
 import com.innercirclesoftware.londair.base.BaseActivity;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 

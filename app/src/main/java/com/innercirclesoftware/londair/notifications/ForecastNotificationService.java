@@ -11,10 +11,10 @@ import android.support.v4.content.ContextCompat;
 
 import com.innercirclesoftware.londair.LondAir;
 import com.innercirclesoftware.londair.R;
-import com.innercirclesoftware.londair.airquality.Air;
-import com.innercirclesoftware.londair.airquality.CurrentForecast;
-import com.innercirclesoftware.londair.airquality.TflService;
-import com.innercirclesoftware.londair.main.MainActivity;
+import com.innercirclesoftware.londair.data.tfl.Air;
+import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
+import com.innercirclesoftware.londair.data.tfl.TflService;
+import com.innercirclesoftware.londair.ui.main.MainActivity;
 
 import javax.inject.Inject;
 

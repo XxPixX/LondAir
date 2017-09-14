@@ -1,8 +1,8 @@
-package com.innercirclesoftware.londair.preferences.ui;
+package com.innercirclesoftware.londair.ui.settings;
 
 import android.support.annotation.NonNull;
 
-import com.innercirclesoftware.londair.preferences.PreferenceManager;
+import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
 
 import dagger.Module;
 import dagger.Provides;
