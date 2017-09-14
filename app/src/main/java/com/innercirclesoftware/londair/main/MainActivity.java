@@ -3,6 +3,7 @@ package com.innercirclesoftware.londair.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.airquality.CurrentForecast;
+import com.innercirclesoftware.londair.airquality.ui.AirQualityFragment;
 import com.innercirclesoftware.londair.base.BaseActivity;
 
 import javax.inject.Inject;
@@ -31,6 +33,8 @@ public class MainActivity extends BaseActivity implements MainView {
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.container) CoordinatorLayout coordinatorLayout;
     private ForecastViewPagerAdapter viewPagerAdapter;
+    @Nullable private CurrentForecast todaysForecast;
+    @Nullable private CurrentForecast tomorrowsForecast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +141,26 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     public void showForecast(int position, @NonNull CurrentForecast forecast) {
-        viewPagerAdapter.getFragment(position).setForecast(forecast);
+        AirQualityFragment fragment = viewPagerAdapter.getFragment(position);
+
+        if (fragment != null) {
+            fragment.setForecast(forecast);
+            if (position == 0) this.todaysForecast = null;
+            else this.tomorrowsForecast = null;
+        } else {
+            if (position == 0) this.todaysForecast = forecast;
+            else this.tomorrowsForecast = forecast;
+        }
+    }
+
+    @Nullable
+    public CurrentForecast getTodaysForecast() {
+        return todaysForecast;
+    }
+
+    @Nullable
+    public CurrentForecast getTomorrowsForecast() {
+        return tomorrowsForecast;
     }
 
     @Override

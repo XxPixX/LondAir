@@ -19,4 +19,5 @@
     <string name="no_internet_connection">No internet connection!</string>
     <string name="refresh">Refresh</string>
     <string name="error">Error: %s</string>
+    <string name="notification_forecast_title">%s pollution levels today</string>
 </resources>

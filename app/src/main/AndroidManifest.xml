@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".notifications.ForecastNotificationService"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="9422b9ad525647e099ade845d6185ec84439fdd1"/>

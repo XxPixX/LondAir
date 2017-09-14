@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.airquality.CurrentForecast;
 import com.innercirclesoftware.londair.base.BaseFragment;
+import com.innercirclesoftware.londair.main.MainActivity;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,7 @@ import butterknife.BindView;
 
 public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
+    private static final String ARG_KEY_POSITION = "ARG_KEY_POSITION";
     @Inject AirQualityPresenter presenter;
 
     @BindView(R.id.container) LinearLayout container;
@@ -49,11 +51,29 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     @BindColor(android.R.color.primary_text_light) int blackTextTitleColour;
     @BindColor(android.R.color.secondary_text_light) int blackTextSubtitleColour;
 
+    public static AirQualityFragment getInstance(int position) {
+        Bundle arguments = new Bundle();
+        arguments.putInt(ARG_KEY_POSITION, position);
+
+        AirQualityFragment fragment = new AirQualityFragment();
+        fragment.setArguments(arguments);
+        return fragment;
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getComponent().inject(this);
         presenter.attachView(this);
+        int position = getArguments().getInt(ARG_KEY_POSITION);
+        MainActivity mainActivity = (MainActivity) getBaseActivity();
+        if (position == 0) {
+            CurrentForecast todaysForecast = mainActivity.getTodaysForecast();
+            if (todaysForecast != null) setForecast(todaysForecast);
+        } else {
+            CurrentForecast tomorrowsForecast = mainActivity.getTomorrowsForecast();
+            if (tomorrowsForecast != null) setForecast(tomorrowsForecast);
+        }
     }
 
     @Override
