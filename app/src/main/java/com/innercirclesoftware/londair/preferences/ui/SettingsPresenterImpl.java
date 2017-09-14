@@ -38,7 +38,7 @@ class SettingsPresenterImpl implements SettingsPresenter {
     }
 
     @Override
-    public void detachView() {
+    public void detachAllViews() {
         Timber.v("Detaching settings view");
         this.view = null;
     }

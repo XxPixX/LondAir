@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     protected void onDestroy() {
-        presenter.detachView();
+        presenter.detachAllViews();
         super.onDestroy();
     }
 

@@ -6,7 +6,7 @@ public interface BasePresenter<T extends BaseView> {
 
     void attachView(@NonNull T view);
 
-    void detachView();
+    void detachAllViews();
 
     void close();
 

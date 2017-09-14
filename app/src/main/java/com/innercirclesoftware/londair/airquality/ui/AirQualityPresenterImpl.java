@@ -18,7 +18,7 @@ public class AirQualityPresenterImpl implements AirQualityPresenter {
     }
 
     @Override
-    public void detachView() {
+    public void detachAllViews() {
         this.view = null;
     }
 

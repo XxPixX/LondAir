@@ -72,7 +72,7 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void detachView() {
+    public void detachAllViews() {
         this.view = null;
     }
 

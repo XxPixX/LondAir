@@ -25,7 +25,7 @@ public class SettingsActivity extends BaseActivity implements SettingsView {
 
     @Override
     protected void onStop() {
-        presenter.detachView();
+        presenter.detachAllViews();
         super.onStop();
     }
 

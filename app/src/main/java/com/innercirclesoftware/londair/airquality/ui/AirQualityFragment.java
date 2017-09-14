@@ -80,7 +80,7 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
     @Override
     public void onDestroyView() {
-        presenter.detachView();
+        presenter.detachAllViews();
         super.onDestroyView();
     }
 
