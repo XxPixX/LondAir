@@ -73,6 +73,7 @@ dependencies {
 
     //retrofit
     compile "com.squareup.retrofit2:retrofit:${version.retrofit}"
+    compile "com.squareup.retrofit2:adapter-rxjava2:${version.retrofit}"
 
     //gson
     compile 'com.google.code.gson:gson:2.8.0'
