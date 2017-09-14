@@ -21,6 +21,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".preferences.ui.SettingsActivity"
+            android:parentActivityName=".main.MainActivity"/>
+
         <service android:name=".notifications.ForecastNotificationService"/>
         <meta-data
             android:name="io.fabric.ApiKey"

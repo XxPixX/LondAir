@@ -1,5 +1,6 @@
 package com.innercirclesoftware.londair.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,11 +9,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.innercirclesoftware.londair.LondAir;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
+import com.innercirclesoftware.londair.preferences.ui.SettingsActivity;
 import com.innercirclesoftware.londair.ui.Message;
 
 import butterknife.BindView;
@@ -35,8 +38,24 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) onSetActionBar(actionBar);
+            if (actionBar != null) {
+                if (showToolbarBackButton()) {
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                    actionBar.setDisplayShowHomeEnabled(true);
+                }
+                onSetActionBar(actionBar);
+            }
         }
+    }
+
+    /**
+     * Override and return true to easily show the back button in the toolbar
+     * Default value: false
+     *
+     * @return true if the app should display the back arrow in the action bar, false does nothing
+     */
+    protected boolean showToolbarBackButton() {
+        return false;
     }
 
     @SuppressWarnings("UnusedParameters")
@@ -70,5 +89,23 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
     @NonNull
     private View getDecorView() {
         return getWindow().getDecorView();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                launchSettingsActivity();
+                return true;
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void launchSettingsActivity() {
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 }

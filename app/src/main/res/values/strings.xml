@@ -20,4 +20,5 @@
     <string name="refresh">Refresh</string>
     <string name="error">Error: %s</string>
     <string name="notification_forecast_title">%s pollution levels today</string>
+    <string name="menu_item_settings">Settings</string>
 </resources>

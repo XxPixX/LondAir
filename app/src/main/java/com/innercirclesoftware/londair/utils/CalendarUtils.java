@@ -1,5 +1,6 @@
 package com.innercirclesoftware.londair.utils;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import java.util.Calendar;
@@ -21,5 +22,13 @@ public class CalendarUtils {
     public static boolean isPast(long timeInMilliseconds) {
         Calendar now = Calendar.getInstance();
         return timeInMilliseconds < now.getTimeInMillis();
+    }
+
+    @NonNull
+    public static Calendar getCalendarWithHourMinute(@IntRange(from = 0, to = 23) int hour, @IntRange(from = 0, to = 59) int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        return calendar;
     }
 }
