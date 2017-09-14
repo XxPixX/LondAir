@@ -18,9 +18,6 @@ import com.innercirclesoftware.londair.ui.main.MainActivity;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import timber.log.Timber;
 
 public class ForecastNotificationService extends IntentService {
@@ -46,20 +43,12 @@ public class ForecastNotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        tflService.getAirQuality().enqueue(new Callback<Air>() {
-            @Override
-            public void onResponse(Call<Air> call, Response<Air> response) {
-                Timber.i("Retrieved air quality in ForecastNotificationService");
-                Air air = response.body();
-                CurrentForecast today = air.getCurrentForecast().get(0);
-                showNotification(today);
-            }
-
-            @Override
-            public void onFailure(Call<Air> call, Throwable t) {
-                Timber.w(t, "Failed to get air quality in ForecastNotificationService");
-            }
-        });
+        tflService.getAirQuality()
+                .doOnSuccess(air -> Timber.i("Retrieved air quality in ForecastNotificationService"))
+                .map(Air::getCurrentForecast)
+                .map(currentForecasts -> currentForecasts.get(0))
+                .doOnError(throwable -> Timber.w(throwable, "Failed to get air quality in ForecastNotificationService"))
+                .subscribe(this::showNotification);
     }
 
     private void showNotification(@NonNull CurrentForecast today) {

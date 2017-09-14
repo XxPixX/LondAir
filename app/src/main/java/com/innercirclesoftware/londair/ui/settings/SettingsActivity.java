@@ -6,7 +6,6 @@ import android.widget.TextView;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.base.BaseActivity;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
-import com.innercirclesoftware.londair.data.preferences.ui.DaggerSettingsComponent;
 
 import javax.inject.Inject;
 
