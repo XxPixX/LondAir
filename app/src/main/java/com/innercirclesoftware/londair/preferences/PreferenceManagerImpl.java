@@ -14,13 +14,16 @@ import java.util.Calendar;
 import io.reactivex.Observable;
 import timber.log.Timber;
 
-class PreferenceManagerImpl implements PreferenceManager {
+public class PreferenceManagerImpl implements PreferenceManager {
 
     @NonNull private final SharedPreferences preferences;
     @NonNull private final RxSharedPreferences rxSharedPreferences;
 
     @NonNull private static final String KEY_MORNING_NOTIFICATION_HOUR = "KEY_MORNING_NOTIFICATION_HOUR";
+    private static final int DEF_VAL_MORNING_NOTIFICATION_HOUR = 9;
+
     @NonNull private static final String KEY_MORNING_NOTIFICATION_MINUTE = "KEY_MORNING_NOTIFICATION_MINUTE";
+    private static final int DEF_VAL_MORNING_NOTIFICATION_MINUTE = 0;
 
     public PreferenceManagerImpl(@NonNull SharedPreferences preferences, @NonNull RxSharedPreferences rxSharedPreferences) {
         this.preferences = preferences;
@@ -43,12 +46,14 @@ class PreferenceManagerImpl implements PreferenceManager {
 
     @Override
     public Observable<Integer> morningNotificationHour() {
-        return rxSharedPreferences.getInteger(KEY_MORNING_NOTIFICATION_HOUR).asObservable();
+        return rxSharedPreferences.getInteger(KEY_MORNING_NOTIFICATION_HOUR, DEF_VAL_MORNING_NOTIFICATION_HOUR)
+                .asObservable();
     }
 
     @Override
     public Observable<Integer> morningNotificationMinute() {
-        return rxSharedPreferences.getInteger(KEY_MORNING_NOTIFICATION_MINUTE).asObservable();
+        return rxSharedPreferences.getInteger(KEY_MORNING_NOTIFICATION_MINUTE, DEF_VAL_MORNING_NOTIFICATION_MINUTE)
+                .asObservable();
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.airquality.CurrentForecast;
 import com.innercirclesoftware.londair.airquality.ui.AirQualityFragment;
 import com.innercirclesoftware.londair.base.BaseActivity;
+import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 
 import javax.inject.Inject;
 
@@ -36,11 +37,15 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getComponent().inject(this);
         initDateSpinner();
         initViewPager();
         initSwipeRefreshLayout();
         presenter.attachView(this);
+    }
+
+    @Override
+    protected void inject(@NonNull ApplicationComponent applicationComponent) {
+        applicationComponent.inject(this);
     }
 
     private void initDateSpinner() {

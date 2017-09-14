@@ -20,9 +20,38 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/notification_switch"
         android:layout_width="match_parent"
+        style="@style/TextAppearance.AppCompat.Widget.Switch"
         android:layout_height="48dp"
-        tools:text="Notifications"/>
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/settings_notification_header"/>
+
+    <FrameLayout
+        android:id="@+id/notification_time"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:foreground="?selectableItemBackground"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:gravity="bottom"
+            android:text="@string/settings_notification_time_title"/>
+
+        <TextView
+            android:id="@+id/notification_time_summary"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="36dp"
+            tools:text="Everyday at 9:00"/>
+
+    </FrameLayout>
 
 </LinearLayout>

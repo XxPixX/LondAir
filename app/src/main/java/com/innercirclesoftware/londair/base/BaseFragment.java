@@ -41,7 +41,7 @@ public abstract class BaseFragment extends Fragment implements Layoutable, BaseV
     }
 
     protected ApplicationComponent getComponent() {
-        return getBaseActivity().getComponent();
+        return getBaseActivity().getApplicationComponent();
     }
 
     @Override

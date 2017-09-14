@@ -23,6 +23,11 @@ public class AirQualityPresenterImpl implements AirQualityPresenter {
     }
 
     @Override
+    public void close() {
+
+    }
+
+    @Override
     public void onForecastRefreshed(@Nullable CurrentForecast forecast) {
         this.forecast = forecast;
 

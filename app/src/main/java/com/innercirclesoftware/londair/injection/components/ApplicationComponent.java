@@ -5,9 +5,11 @@ import com.innercirclesoftware.londair.airquality.ui.AirQualityFragment;
 import com.innercirclesoftware.londair.injection.modules.AndroidModule;
 import com.innercirclesoftware.londair.injection.modules.NetworkModule;
 import com.innercirclesoftware.londair.injection.modules.NotificationModule;
+import com.innercirclesoftware.londair.injection.modules.PreferencesModule;
 import com.innercirclesoftware.londair.injection.modules.PresenterModule;
 import com.innercirclesoftware.londair.main.MainActivity;
 import com.innercirclesoftware.londair.notifications.ForecastNotificationService;
+import com.innercirclesoftware.londair.preferences.PreferenceManager;
 
 import javax.inject.Singleton;
 
@@ -19,8 +21,11 @@ import dagger.Component;
         PresenterModule.class,
         NetworkModule.class,
         NotificationModule.class,
+        PreferencesModule.class
 })
 public interface ApplicationComponent {
+
+    PreferenceManager preferenceManager();
 
     void inject(MainActivity activity);
 

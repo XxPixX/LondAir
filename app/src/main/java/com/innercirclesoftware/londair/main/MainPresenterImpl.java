@@ -77,6 +77,11 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
+    public void close() {
+
+    }
+
+    @Override
     public void onSpinnerDateItemSelected(int position) {
         if (view != null) {
             view.showForecastFragment(position);

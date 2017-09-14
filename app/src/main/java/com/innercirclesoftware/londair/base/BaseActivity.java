@@ -30,9 +30,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
+        inject(getApplicationComponent());
         ButterKnife.bind(this);
         setToolbar();
     }
+
+    protected abstract void inject(@NonNull ApplicationComponent applicationComponent);
 
     protected void setToolbar() {
         if (toolbar != null) {
@@ -63,10 +66,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
 
     }
 
-    protected ApplicationComponent getComponent() {
+    @NonNull
+    protected ApplicationComponent getApplicationComponent() {
         return getApp().getApplicationComponent();
     }
 
+    @NonNull
     protected LondAir getApp() {
         return (LondAir) getApplication();
     }
