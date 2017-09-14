@@ -25,7 +25,7 @@ class MainPresenterImpl implements MainPresenter {
     @Nullable private CurrentForecast todaysForecast;
     @Nullable private CurrentForecast tomorrowsForecast;
 
-    @NonNull private TflService tflService;
+    @NonNull private final TflService tflService;
     @Nullable private Disposable forecastFetcher;
 
     MainPresenterImpl(@NonNull TflService tflService) {
@@ -119,13 +119,21 @@ class MainPresenterImpl implements MainPresenter {
                     this.todaysForecast = forecasts.get(0);
                     this.tomorrowsForecast = forecasts.get(1);
 
-                    //todo add timer message if it isn't null
-                    //TODO add null check
-                    if (todaysView != null) todaysView.onShowForecastRequested(todaysForecast);
-                    else Timber.i("Fetched todays forecast but the today view hasn't been attached yet");
+                    //today
+                    if (todaysForecast != null) {
+                        if (todaysView != null) todaysView.onShowForecastRequested(todaysForecast);
+                        else Timber.i("Fetched todays forecast but the today view hasn't been attached yet");
+                    } else {
+                        Timber.w("Fetched forecasts %s but today is null", forecasts);
+                    }
 
-                    if (tomorrowsView != null) tomorrowsView.onShowForecastRequested(tomorrowsForecast);
-                    else Timber.i("Fetched tomorrows forecast but the tomorrow view hasn't been attached yet");
+                    //tomorrow
+                    if (tomorrowsForecast != null) {
+                        if (tomorrowsView != null) tomorrowsView.onShowForecastRequested(tomorrowsForecast);
+                        else Timber.i("Fetched tomorrows forecast but the tomorrow view hasn't been attached yet");
+                    } else {
+                        Timber.w("Fetched forecasts %s but tomorrow is null", forecasts);
+                    }
 
                     if (view != null) {
                         view.setRefreshing(false);

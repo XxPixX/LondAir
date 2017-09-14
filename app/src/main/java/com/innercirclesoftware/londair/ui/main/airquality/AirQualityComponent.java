@@ -6,7 +6,7 @@ import dagger.Component;
 
 @PerAirQualityFragment
 @Component(dependencies = MainComponent.class, modules = AirQualityModule.class)
-public interface AirQualityComponent {
+interface AirQualityComponent {
 
     void inject(AirQualityFragment airQualityFragment);
 

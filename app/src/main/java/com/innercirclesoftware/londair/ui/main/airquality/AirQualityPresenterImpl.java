@@ -15,6 +15,7 @@ class AirQualityPresenterImpl implements AirQualityPresenter {
     @Override
     public void attachView(@NonNull AirQualityView view) {
         this.view = view;
+        if (forecast != null) view.showForecast(forecast);
     }
 
     @Override

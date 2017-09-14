@@ -17,8 +17,8 @@ import timber.log.Timber;
 public class NotificationScheduler {
 
     private static final int MORNING_NOTIFICATION_REQUEST_CODE = 0;
-    @NonNull private Context context;
-    @NonNull private AlarmManager alarmManager;
+    @NonNull private final Context context;
+    @NonNull private final AlarmManager alarmManager;
 
     @Inject
     public NotificationScheduler(@NonNull Context context, @NonNull AlarmManager alarmManager) {

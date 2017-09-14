@@ -54,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
 
     protected abstract void inject(@NonNull ApplicationComponent applicationComponent);
 
-    protected void initToolbar() {
+    private void initToolbar() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
@@ -84,21 +84,21 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
     }
 
     @NonNull
-    protected ApplicationComponent getApplicationComponent() {
+    ApplicationComponent getApplicationComponent() {
         return getApp().getApplicationComponent();
     }
 
     @NonNull
-    protected LondAir getApp() {
+    private LondAir getApp() {
         return (LondAir) getApplication();
     }
 
     @Override
     public void showMessage(@NonNull Message message) {
-        showSnackbar(getString(message.getStringRes(), message.getArguments()));
+        showSnackbar(getString(message.getStringRes(), (Object[]) message.getArguments()));
     }
 
-    public void showSnackbar(@NonNull String message) {
+    private void showSnackbar(@NonNull String message) {
         Snackbar.make(getSnackbarTargetView(), message, Snackbar.LENGTH_LONG).show();
     }
 

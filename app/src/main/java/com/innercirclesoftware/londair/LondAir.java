@@ -63,7 +63,7 @@ public class LondAir extends Application {
         return component;
     }
 
-    public static LondAir from(@NonNull Context context) {
+    private static LondAir from(@NonNull Context context) {
         return (LondAir) context;
     }
 

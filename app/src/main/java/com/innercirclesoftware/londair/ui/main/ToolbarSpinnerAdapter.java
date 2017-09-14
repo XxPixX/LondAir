@@ -17,8 +17,8 @@ import java.util.List;
 
 
 class ToolbarSpinnerAdapter extends BaseAdapter {
-    @NonNull private List<String> items = new ArrayList<>();
-    @NonNull private Context context;
+    @NonNull private final List<String> items = new ArrayList<>();
+    @NonNull private final Context context;
 
 
     ToolbarSpinnerAdapter(@NonNull Context context){
@@ -48,7 +48,7 @@ class ToolbarSpinnerAdapter extends BaseAdapter {
             view.setTag("DROPDOWN");
         }
 
-        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+        TextView textView = view.findViewById(android.R.id.text1);
         textView.setText(getTitle(position));
         textView.setTextColor(ContextCompat.getColor(context, android.R.color.primary_text_light));
 
@@ -61,7 +61,7 @@ class ToolbarSpinnerAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.toolbar_spinner_item_actionbar, parent, false);
             view.setTag("NON_DROPDOWN");
         }
-        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+        TextView textView = view.findViewById(android.R.id.text1);
         textView.setText(getTitle(position));
         return view;
     }

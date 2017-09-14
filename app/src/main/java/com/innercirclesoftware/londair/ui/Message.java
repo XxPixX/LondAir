@@ -8,7 +8,6 @@ import com.innercirclesoftware.londair.R;
 public class Message {
 
     public static final Message REFRESHED = new Message(R.string.refreshed);
-    public static final Message NO_INTERNET = new Message(R.string.no_internet_connection);
 
     @StringRes private final int stringRes;
     @NonNull private final String[] arguments;

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 import com.innercirclesoftware.londair.ui.Message;
 
 import butterknife.ButterKnife;
@@ -49,10 +48,6 @@ public abstract class BaseFragment extends Fragment implements Layoutable, BaseV
 
     protected BaseActivity getBaseActivity() {
         return (BaseActivity) getActivity();
-    }
-
-    protected ApplicationComponent getComponent() {
-        return getBaseActivity().getApplicationComponent();
     }
 
     @Override
