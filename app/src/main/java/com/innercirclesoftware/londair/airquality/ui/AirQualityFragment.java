@@ -66,7 +66,7 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getComponent().inject(this);
-        presenter.attachView(this);
+        registerPresenter(presenter);
         int position = getArguments().getInt(ARG_KEY_POSITION);
         MainActivity mainActivity = (MainActivity) getBaseActivity();
         if (position == 0) {
@@ -76,12 +76,6 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
             CurrentForecast tomorrowsForecast = mainActivity.getTomorrowsForecast();
             if (tomorrowsForecast != null) setForecast(tomorrowsForecast);
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        presenter.detachAllViews();
-        super.onDestroyView();
     }
 
     @Override

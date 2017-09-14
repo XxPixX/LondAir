@@ -17,6 +17,7 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment implements Layoutable, BaseView {
 
     @Nullable private Unbinder unbinder;
+    @Nullable private BasePresenter presenter;
 
     @Nullable
     @Override
@@ -31,9 +32,22 @@ public abstract class BaseFragment extends Fragment implements Layoutable, BaseV
     }
 
     @Override
+    public void onStop() {
+        if (presenter != null) presenter.detachAllViews();
+        super.onStop();
+    }
+
+    @Override
     public void onDestroyView() {
-        super.onDestroyView();
+        if (presenter != null) presenter.close();
         if (unbinder != null) unbinder.unbind();
+        super.onDestroyView();
+    }
+
+    protected void registerPresenter(@NonNull BasePresenter presenter) {
+        this.presenter = presenter;
+        //noinspection unchecked
+        presenter.attachView(this);
     }
 
     protected BaseActivity getBaseActivity() {

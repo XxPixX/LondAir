@@ -26,18 +26,38 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
     @BindView(R.id.toolbar) @Nullable Toolbar toolbar;
     @BindView(R.id.container) @Nullable CoordinatorLayout coordinatorLayout;
 
+    @Nullable private BasePresenter presenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         inject(getApplicationComponent());
         ButterKnife.bind(this);
-        setToolbar();
+        initToolbar();
+    }
+
+    @Override
+    protected void onStop() {
+        if (presenter != null) presenter.detachAllViews();
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (presenter != null) presenter.close();
+        super.onDestroy();
+    }
+
+    protected void registerPresenter(@NonNull BasePresenter presenter) {
+        this.presenter = presenter;
+        //noinspection unchecked
+        presenter.attachView(this);
     }
 
     protected abstract void inject(@NonNull ApplicationComponent applicationComponent);
 
-    protected void setToolbar() {
+    protected void initToolbar() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();

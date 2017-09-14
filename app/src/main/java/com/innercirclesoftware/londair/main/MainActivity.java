@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity implements MainView {
         initDateSpinner();
         initViewPager();
         initSwipeRefreshLayout();
-        presenter.attachView(this);
+        registerPresenter(presenter);
     }
 
     @Override
@@ -90,12 +90,6 @@ public class MainActivity extends BaseActivity implements MainView {
     private void initSwipeRefreshLayout() {
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefreshSwiped());
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-    }
-
-    @Override
-    protected void onDestroy() {
-        presenter.detachAllViews();
-        super.onDestroy();
     }
 
     @Override

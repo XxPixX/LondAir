@@ -18,24 +18,6 @@ public class SettingsActivity extends BaseActivity implements SettingsView {
     @BindView(R.id.notification_time_summary) TextView notificationTimeSummary;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.attachView(this);
-    }
-
-    @Override
-    protected void onStop() {
-        presenter.detachAllViews();
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        presenter.close();
-        super.onDestroy();
-    }
-
-    @Override
     public int getLayout() {
         return R.layout.activity_settings;
     }
