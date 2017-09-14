@@ -47,15 +47,29 @@ class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
+    public void detachTodaysView() {
+        Timber.v("Detaching todays view %s in %s", todaysView, this);
+        this.todaysView = null;
+    }
+
+    @Override
     public void attachTomorrowsView(@NonNull AirQualityView tomorrowsView) {
         Timber.v("Attaching tomorrows view %s to %s", tomorrowsView, this);
         this.tomorrowsView = tomorrowsView;
     }
 
     @Override
+    public void detachTomorrowsView() {
+        Timber.v("Detaching tomorrows view %s in %s", tomorrowsView, this);
+        this.tomorrowsView = null;
+    }
+
+    @Override
     public void detachAllViews() {
         Timber.v("Detaching all views in %s", this);
         this.view = null;
+        this.todaysView = null;
+        this.tomorrowsView = null;
     }
 
     @Override

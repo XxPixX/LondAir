@@ -9,11 +9,16 @@ public interface MainPresenter extends BasePresenter<MainView> {
 
     void attachTodaysView(@NonNull AirQualityView todaysView);
 
+    void detachTodaysView();
+
     void attachTomorrowsView(@NonNull AirQualityView tomorrowsView);
+
+    void detachTomorrowsView();
 
     void onSpinnerDateItemSelected(int position);
 
     void onRefreshSwiped();
 
     void onPageSelected(int position);
+
 }

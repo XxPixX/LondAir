@@ -19,6 +19,7 @@ import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
 import com.innercirclesoftware.londair.ui.main.MainActivity;
 import com.innercirclesoftware.londair.ui.main.MainComponent;
 import com.innercirclesoftware.londair.ui.main.MainPresenter;
+import com.innercirclesoftware.londair.utils.PrimitiveUtils;
 
 import javax.inject.Inject;
 
@@ -56,6 +57,7 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     @BindColor(android.R.color.secondary_text_dark) int whiteTextSubtitleColour;
     @BindColor(android.R.color.primary_text_light) int blackTextTitleColour;
     @BindColor(android.R.color.secondary_text_light) int blackTextSubtitleColour;
+    private boolean isToday = false;
 
     public static AirQualityFragment getInstance(int position) {
         Bundle arguments = new Bundle();
@@ -73,9 +75,19 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
         registerPresenter(presenter);
 
         int position = getArguments().getInt(ARG_KEY_POSITION, -1); //-1 is an impossible position, don't want it to default to 0
-        if (position == 0) mainPresenter.attachTodaysView(this);
-        else if (position == 1) mainPresenter.attachTomorrowsView(this);
-        else Timber.w("Unknown position %s in AirQualityFragment extras", position);
+        PrimitiveUtils.assertInRange(0, position, 1);
+
+        isToday = position == 0;
+        if (isToday) mainPresenter.attachTodaysView(this);
+        else mainPresenter.attachTomorrowsView(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (isToday) mainPresenter.detachTodaysView();
+        else mainPresenter.detachTomorrowsView();
+        mainPresenter = null;
+        super.onDestroyView();
     }
 
     private void inject() {
