@@ -15,8 +15,8 @@ import android.view.View;
 import com.innercirclesoftware.londair.LondAir;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
-import com.innercirclesoftware.londair.ui.settings.SettingsActivity;
 import com.innercirclesoftware.londair.ui.Message;
+import com.innercirclesoftware.londair.ui.settings.SettingsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,14 +38,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
     }
 
     @Override
-    protected void onStop() {
-        if (presenter != null) presenter.detachAllViews();
-        super.onStop();
-    }
-
-    @Override
     protected void onDestroy() {
-        if (presenter != null) presenter.close();
+        if (presenter != null) {
+            presenter.detachAllViews();
+            presenter.close();
+        }
         super.onDestroy();
     }
 

@@ -32,14 +32,11 @@ public abstract class BaseFragment extends Fragment implements Layoutable, BaseV
     }
 
     @Override
-    public void onStop() {
-        if (presenter != null) presenter.detachAllViews();
-        super.onStop();
-    }
-
-    @Override
     public void onDestroyView() {
-        if (presenter != null) presenter.close();
+        if (presenter != null) {
+            presenter.detachAllViews();
+            presenter.close();
+        }
         if (unbinder != null) unbinder.unbind();
         super.onDestroyView();
     }
