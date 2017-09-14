@@ -3,9 +3,12 @@ package com.innercirclesoftware.londair.base;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.innercirclesoftware.londair.LondAir;
 import com.innercirclesoftware.londair.R;
@@ -17,9 +20,8 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity implements Layoutable, BaseView {
 
-    @Nullable
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolbar) @Nullable Toolbar toolbar;
+    @BindView(R.id.container) @Nullable CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,5 +57,18 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
         showSnackbar(getString(message.getStringRes(), message.getArguments()));
     }
 
-    public abstract void showSnackbar(String message);
+    public void showSnackbar(@NonNull String message) {
+        Snackbar.make(getSnackbarTargetView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @NonNull
+    private View getSnackbarTargetView() {
+        if (coordinatorLayout != null) return coordinatorLayout;
+        return getDecorView();
+    }
+
+    @NonNull
+    private View getDecorView() {
+        return getWindow().getDecorView();
+    }
 }

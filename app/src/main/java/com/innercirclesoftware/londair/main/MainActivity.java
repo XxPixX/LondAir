@@ -4,8 +4,6 @@ package com.innercirclesoftware.londair.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -31,7 +29,6 @@ public class MainActivity extends BaseActivity implements MainView {
     @BindView(R.id.date_spinner) AppCompatSpinner dateSpinner;
     @BindView(R.id.view_pager) ViewPager viewPager;
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.container) CoordinatorLayout coordinatorLayout;
     private ForecastViewPagerAdapter viewPagerAdapter;
     @Nullable private CurrentForecast todaysForecast;
     @Nullable private CurrentForecast tomorrowsForecast;
@@ -122,11 +119,6 @@ public class MainActivity extends BaseActivity implements MainView {
     protected void onSetActionBar(@NonNull ActionBar actionBar) {
         super.onSetActionBar(actionBar);
         actionBar.setDisplayShowTitleEnabled(false);
-    }
-
-    @Override
-    public void showSnackbar(String message) {
-        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
