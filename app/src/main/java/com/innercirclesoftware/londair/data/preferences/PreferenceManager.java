@@ -39,7 +39,7 @@ public interface PreferenceManager {
 
     /**
      * @return an observable which when subscribed to, emits whether the morning notification is enabled.
-     * If the user disabled or enables it, the observable will emit the new user preferences.
+     * If the user disables or enables notification, the observable will emit the new user preferences.
      */
     Observable<Boolean> notificationEnabled();
 
