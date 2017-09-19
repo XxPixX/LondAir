@@ -32,7 +32,7 @@ public interface PreferenceManager {
 
     /**
      * @return a calendar class containing the hour and minute of when the notification time should go off.
-     * No assumptions are made on the day of the calendar.
+     * No assumptions are made on the date, second, millisecond of the calendar.
      */
     Observable<Calendar> notificationTime();
 
