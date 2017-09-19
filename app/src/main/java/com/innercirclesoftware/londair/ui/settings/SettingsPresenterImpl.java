@@ -69,7 +69,7 @@ class SettingsPresenterImpl implements SettingsPresenter {
             return;
         }
 
-        this.notifTimeDisposable = preferenceManager.morningNotificationTime()
+        this.notifTimeDisposable = preferenceManager.notificationTime()
                 .doOnNext(calendar -> this.notifTime = calendar)
                 .map(Calendar::getTime)
                 .map(TIME_FORMAT::format)
@@ -86,7 +86,7 @@ class SettingsPresenterImpl implements SettingsPresenter {
             return;
         }
 
-        this.notifEnabledDisposable = preferenceManager.morningNotificationEnabled()
+        this.notifEnabledDisposable = preferenceManager.notificationEnabled()
                 .subscribe(isEnabled -> {
                     Timber.i("Notification enabled changed to %s", isEnabled);
                     this.notifEnabled = isEnabled;
@@ -102,7 +102,7 @@ class SettingsPresenterImpl implements SettingsPresenter {
             return;
         }
 
-        this.notifMinSeverityDisposable = preferenceManager.morningNotificationMinSeverity()
+        this.notifMinSeverityDisposable = preferenceManager.notificationMinSeverity()
                 .subscribe(newMinSeverity -> {
                     Timber.i("Notification minimum severity changed to %s", newMinSeverity);
                     this.minNotifSeverity = newMinSeverity;

@@ -11,8 +11,10 @@ import android.support.v4.content.ContextCompat;
 
 import com.innercirclesoftware.londair.LondAir;
 import com.innercirclesoftware.londair.R;
+import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
 import com.innercirclesoftware.londair.data.tfl.Air;
 import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
+import com.innercirclesoftware.londair.data.tfl.ForecastBand;
 import com.innercirclesoftware.londair.data.tfl.TflService;
 import com.innercirclesoftware.londair.ui.main.MainActivity;
 
@@ -26,11 +28,14 @@ public class ForecastNotificationService extends IntentService {
 
     @Inject NotificationManagerCompat notificationManager;
     @Inject TflService tflService;
+    @Inject PreferenceManager preferenceManager;
 
+    @SuppressWarnings("unused") //is actually used by android
     public ForecastNotificationService() {
-        this("ForecastNotificationService");
+        super("ForecastNotificationService");
     }
 
+    @SuppressWarnings("unused") //is actually used by android
     public ForecastNotificationService(String name) {
         super(name);
     }
@@ -47,8 +52,34 @@ public class ForecastNotificationService extends IntentService {
                 .doOnSuccess(air -> Timber.i("Retrieved air quality in ForecastNotificationService"))
                 .map(Air::getCurrentForecast)
                 .map(currentForecasts -> currentForecasts.get(0))
+                .toObservable()
+                .withLatestFrom(preferenceManager.notificationMinSeverity().firstOrError().toObservable(), PreferenceForecastHolder::new)
+                .doOnNext(Object::toString)
+                .filter(this::filterForecast)
+                .map(preferenceForecastHolder -> preferenceForecastHolder.forecast)
                 .doOnError(throwable -> Timber.w(throwable, "Failed to get air quality in ForecastNotificationService"))
                 .subscribe(this::showNotification);
+    }
+
+    /**
+     * @param holder holds the current forecast and the users preference towards the minimum severity
+     * @return true if it should pass the filter, false otherwise
+     */
+    private boolean filterForecast(@NonNull PreferenceForecastHolder holder) {
+        switch (holder.forecast.getForecastBand()) {
+            case CurrentForecast.BAND_HIGH:
+                return true; //always shown
+            case CurrentForecast.BAND_MODERATE:
+                return holder.minSeverity.equals(CurrentForecast.BAND_LOW) || holder.minSeverity.equals(CurrentForecast.BAND_MODERATE); //only when minimum is low or moderate
+            case CurrentForecast.BAND_LOW:
+                return holder.minSeverity.equals(CurrentForecast.BAND_LOW); //must be low
+            case CurrentForecast.BAND_NONE:
+                Timber.w("Current forecast has band \"None\" so could not determine appropriate action for notification severity filter");
+                return false;
+            default:
+                Timber.w("Unknown forecast band when filtering according to severity filter: %s", holder.forecast.getForecastBand());
+                return false;
+        }
     }
 
     private void showNotification(@NonNull CurrentForecast today) {
@@ -70,5 +101,16 @@ public class ForecastNotificationService extends IntentService {
     private PendingIntent getNotificationClickIntent() {
         //launch the main activity
         return PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), MainActivity.class), 0);
+    }
+
+    private static class PreferenceForecastHolder {
+
+        @NonNull private final CurrentForecast forecast;
+        @NonNull @ForecastBand private final String minSeverity;
+
+        PreferenceForecastHolder(@NonNull CurrentForecast forecast, @NonNull @ForecastBand String minSeverity) {
+            this.forecast = forecast;
+            this.minSeverity = minSeverity;
+        }
     }
 }

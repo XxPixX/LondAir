@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.innercirclesoftware.londair.utils.CalendarUtils;
+import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
 
 import java.util.Calendar;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class NotificationScheduler {
@@ -21,34 +23,33 @@ public class NotificationScheduler {
     @NonNull private final AlarmManager alarmManager;
 
     @Inject
-    public NotificationScheduler(@NonNull Context context, @NonNull AlarmManager alarmManager) {
+    public NotificationScheduler(@NonNull Context context, @NonNull AlarmManager alarmManager, @NonNull PreferenceManager preferenceManager) {
         this.context = context;
         this.alarmManager = alarmManager;
+
+        Observable.combineLatest(preferenceManager.notificationEnabled(), preferenceManager.notificationTime(), NotificationPreferences::new)
+                .subscribeOn(Schedulers.io())
+                .doOnNext(this::handleNotificationPreferenceChanged)
+                .subscribe();
     }
 
-    public void scheduleMorningNotification() {
-        Timber.i("Scheduling morning notification");
-        Calendar notificationTime = Calendar.getInstance();
-        //8am sharp
-        notificationTime.set(Calendar.HOUR_OF_DAY, 8);
-        notificationTime.set(Calendar.MINUTE, 0);
-        notificationTime.set(Calendar.MILLISECOND, 0);
-        while (CalendarUtils.isPast(notificationTime)) {
-            notificationTime.add(Calendar.DATE, 1);
-        }
+    private void handleNotificationPreferenceChanged(@NonNull NotificationPreferences preferences) {
+        if (preferences.isEnabled()) scheduleNotification(preferences.getTime());
+        else unscheduleMorningNotification();
+    }
 
-        PendingIntent notificationPendingIntent = getMorningNotificationPendingIntent();
-
+    private void scheduleNotification(@NonNull Calendar time) {
+        Timber.i("Scheduling pollution notification for %s", time.getTime());
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
-                notificationTime.getTimeInMillis(),
+                time.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY,
-                notificationPendingIntent
+                getMorningNotificationPendingIntent()
         );
     }
 
-    public void unscheduleMorningNotification() {
-        Timber.i("Unscheduling morning notification");
+    private void unscheduleMorningNotification() {
+        Timber.i("Canceling pollution notification");
         alarmManager.cancel(getMorningNotificationPendingIntent());
     }
 

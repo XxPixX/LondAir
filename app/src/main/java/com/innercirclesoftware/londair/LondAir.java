@@ -21,8 +21,7 @@ public class LondAir extends Application {
 
     private ApplicationComponent component;
 
-    @Inject
-    NotificationScheduler notificationScheduler;
+    @Inject NotificationScheduler notificationScheduler;
 
     @Override
     public void onCreate() {
@@ -30,11 +29,6 @@ public class LondAir extends Application {
         initFabric();
         initTimber();
         initDependencyInjection();
-        scheduleNotifications();
-    }
-
-    private void scheduleNotifications() {
-        notificationScheduler.scheduleMorningNotification();
     }
 
     private void initFabric() {

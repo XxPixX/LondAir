@@ -34,20 +34,20 @@ public interface PreferenceManager {
      * @return a calendar class containing the hour and minute of when the notification time should go off.
      * No assumptions are made on the day of the calendar.
      */
-    Observable<Calendar> morningNotificationTime();
+    Observable<Calendar> notificationTime();
 
 
     /**
      * @return an observable which when subscribed to, emits whether the morning notification is enabled.
      * If the user disabled or enables it, the observable will emit the new user preferences.
      */
-    Observable<Boolean> morningNotificationEnabled();
+    Observable<Boolean> notificationEnabled();
 
 
     /**
      * @return an observable which when subscribed to, emits the minimum severity/forecast band that the pollution level
      * must meet before showing a notification
      */
-    Observable<String> morningNotificationMinSeverity();
+    Observable<String> notificationMinSeverity();
 
 }

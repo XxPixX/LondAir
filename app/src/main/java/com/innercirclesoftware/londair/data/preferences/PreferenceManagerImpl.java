@@ -80,18 +80,18 @@ public class PreferenceManagerImpl implements PreferenceManager {
     }
 
     @Override
-    public Observable<Calendar> morningNotificationTime() {
+    public Observable<Calendar> notificationTime() {
         return Observable.combineLatest(morningNotificationHour(), morningNotificationMinute(), CalendarUtils::getCalendarWithHourMinute);
     }
 
     @Override
-    public Observable<Boolean> morningNotificationEnabled() {
+    public Observable<Boolean> notificationEnabled() {
         return rxSharedPreferences.getBoolean(KEY_MORNING_NOTIFICATION_ENABLED, DEF_VAL_MORNING_NOTIFICATION_ENABLED)
                 .asObservable();
     }
 
     @Override
-    public Observable<String> morningNotificationMinSeverity() {
+    public Observable<String> notificationMinSeverity() {
         return rxSharedPreferences.getString(KEY_MORNING_NOTIFICATION_MIN_SEVERITY, DEF_VAL_MORNING_NOTIFICATION_MIN_SEVERITY)
                 .asObservable();
     }
