@@ -22,36 +22,58 @@
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/notification_switch"
+        style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header"
         android:layout_width="match_parent"
-        style="@style/TextAppearance.AppCompat.Widget.Switch"
         android:layout_height="48dp"
+        android:checked="true"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:text="@string/settings_notification_header"/>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/notification_time"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:foreground="?selectableItemBackground"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:orientation="vertical">
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Body2"
+            android:id="@+id/notification_time_title"
+            style="@style/SettingsItem.Title"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:gravity="bottom"
+            android:layout_height="wrap_content"
             android:text="@string/settings_notification_time_title"/>
 
         <TextView
             android:id="@+id/notification_time_summary"
-            style="@style/TextAppearance.AppCompat.Caption"
+            style="@style/SettingsItem.Subtitle"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginTop="36dp"
+            android:layout_height="wrap_content"
             tools:text="Everyday at 9:00"/>
 
-    </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/notification_min_severity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?selectableItemBackground"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/notification_min_severity_title"
+            style="@style/SettingsItem.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_notification_min_severity_title"/>
+
+        <TextView
+            android:id="@+id/notification_min_severity_summary"
+            style="@style/SettingsItem.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Medium"/>
+
+    </LinearLayout>
 
 </LinearLayout>

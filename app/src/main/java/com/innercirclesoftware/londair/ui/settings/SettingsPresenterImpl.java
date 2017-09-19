@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
+import com.innercirclesoftware.londair.data.tfl.ForecastBand;
 import com.innercirclesoftware.londair.utils.RxUtils;
 
 import java.text.DateFormat;
@@ -16,16 +17,24 @@ import timber.log.Timber;
 class SettingsPresenterImpl implements SettingsPresenter {
 
     @NonNull private final PreferenceManager preferenceManager;
-    @NonNull private static final DateFormat TIME_FORMAT = SimpleDateFormat.getTimeInstance();
+    @NonNull private static final DateFormat TIME_FORMAT = SimpleDateFormat.getTimeInstance(DateFormat.SHORT);
 
     @Nullable private SettingsView view;
 
-    @Nullable private Disposable notificationTimeDisposable;
-    @Nullable private String formattedTime;
+    @Nullable private Disposable notifEnabledDisposable;
+    @Nullable private Disposable notifTimeDisposable;
+    @Nullable private Disposable notifMinSeverityDisposable;
 
-    public SettingsPresenterImpl(@NonNull PreferenceManager preferenceManager) {
+    @Nullable private Boolean notifEnabled;
+    @Nullable private String formattedNotifTime;
+    @Nullable private Calendar notifTime;
+    @Nullable @ForecastBand private String minNotifSeverity;
+
+    SettingsPresenterImpl(@NonNull PreferenceManager preferenceManager) {
         this.preferenceManager = preferenceManager;
+        subscribeToNotificationEnabledUpdates();
         subscribeToNotificationTimeUpdates();
+        subscribeToNotificationSeverityUpdates();
     }
 
     @Override
@@ -33,8 +42,10 @@ class SettingsPresenterImpl implements SettingsPresenter {
         Timber.v("Attaching settings view");
         this.view = view;
 
-        //check if the notification time has been fetched before updating the view
-        if (formattedTime != null) view.setMorningNotificationTime(formattedTime);
+        //check if the preferences values have been fetched before updating the view
+        if (formattedNotifTime != null) view.setMorningNotificationTime(formattedNotifTime);
+        if (notifEnabled != null) view.setNotificationEnabled(notifEnabled);
+        if (minNotifSeverity != null) view.setNotificationSeverity(minNotifSeverity);
     }
 
     @Override
@@ -46,23 +57,95 @@ class SettingsPresenterImpl implements SettingsPresenter {
     @Override
     public void close() {
         Timber.v("Closing %s", this);
-        RxUtils.dispose(notificationTimeDisposable);
-        this.notificationTimeDisposable = null;
+        RxUtils.dispose(notifTimeDisposable, notifEnabledDisposable, notifMinSeverityDisposable);
+        this.notifTimeDisposable = null;
+        this.notifEnabledDisposable = null;
+        this.notifMinSeverityDisposable = null;
     }
 
     private void subscribeToNotificationTimeUpdates() {
-        if (RxUtils.isRunning(notificationTimeDisposable)) {
+        if (RxUtils.isRunning(notifTimeDisposable)) {
             Timber.w("Requested to subscribe to the notification time updates but we are already subscribed");
             return;
         }
 
-        this.notificationTimeDisposable = preferenceManager.morningNotificationTime()
+        this.notifTimeDisposable = preferenceManager.morningNotificationTime()
+                .doOnNext(calendar -> this.notifTime = calendar)
                 .map(Calendar::getTime)
                 .map(TIME_FORMAT::format)
                 .subscribe((@NonNull String formattedTime) -> {
                     Timber.i("Notification time changed to %s", formattedTime);
-                    this.formattedTime = formattedTime;
+                    this.formattedNotifTime = formattedTime;
                     if (view != null) view.setMorningNotificationTime(formattedTime);
                 });
+    }
+
+    private void subscribeToNotificationEnabledUpdates() {
+        if (RxUtils.isRunning(notifEnabledDisposable)) {
+            Timber.w("Requested to subscribe to the notification enabled updates but we are already subscribed");
+            return;
+        }
+
+        this.notifEnabledDisposable = preferenceManager.morningNotificationEnabled()
+                .subscribe(isEnabled -> {
+                    Timber.i("Notification enabled changed to %s", isEnabled);
+                    this.notifEnabled = isEnabled;
+                    if (view != null) view.setNotificationEnabled(isEnabled);
+                });
+
+
+    }
+
+    private void subscribeToNotificationSeverityUpdates() {
+        if (RxUtils.isRunning(notifMinSeverityDisposable)) {
+            Timber.w("Requested to subscribe to the notification severity updates but we are already subscribed");
+            return;
+        }
+
+        this.notifMinSeverityDisposable = preferenceManager.morningNotificationMinSeverity()
+                .subscribe(newMinSeverity -> {
+                    Timber.i("Notification minimum severity changed to %s", newMinSeverity);
+                    this.minNotifSeverity = newMinSeverity;
+                    if (view != null) view.setNotificationSeverity(newMinSeverity);
+                });
+    }
+
+    @Override
+    public void onNotificationSwitchChecked(boolean isChecked) {
+        Timber.i("onNotificationSwitchChecked, isChecked=%s", isChecked);
+        preferenceManager.setMorningNotificationEnabled(isChecked);
+    }
+
+    @Override
+    public void onNotificationTimeClicked() {
+        if (notifTime != null) {
+            if (view != null) view.showNotificationTimePicker(notifTime);
+            else Timber.w("onNotificationTimeClicked with null view");
+        } else {
+            Timber.w("onNotificationTimeClicked but the currently fetched time is null. formatted time is %s", formattedNotifTime);
+        }
+    }
+
+    @Override
+    public void onMinimumSeverityClicked() {
+        if (view != null) {
+            if (minNotifSeverity != null) view.showMinimumSeverityPicker(minNotifSeverity);
+            else Timber.w("onMinimumSeverityClicked but minNotifSeverity is null");
+        } else {
+            Timber.w("onMinimumSeverityClicked but the view is null");
+        }
+    }
+
+    @Override
+    public void onNotificationTimeSelected(int hour, int minute) {
+        Timber.i("onNotificationTimeClicked with hour %s, minute %s", hour, minute);
+        preferenceManager.setMorningNotificationHour(hour);
+        preferenceManager.setMorningNotificationMinute(minute);
+    }
+
+    @Override
+    public void onMinimumSeverityChanged(@ForecastBand String newSeverity) {
+        Timber.i("onMinimumSeverityChanged with severity %s", newSeverity);
+        preferenceManager.setMorningNotificationMinSeverity(newSeverity);
     }
 }

@@ -9,6 +9,7 @@ public class CurrentForecast {
     public static final String BAND_MODERATE = "Moderate";
     public static final String BAND_LOW = "Low";
     public static final String BAND_NONE = "None";
+    public static final String[] ALL_BANDS = new String[]{BAND_HIGH, BAND_MODERATE, BAND_LOW, BAND_NONE};
 
     @SerializedName("$id")
     @Expose

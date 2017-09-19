@@ -22,6 +22,18 @@
     <string name="notification_forecast_title">%s pollution levels today</string>
     <string name="menu_item_settings">Settings</string>
     <string name="settings_notification_time_title">Notification time</string>
-    <string name="settings_notification_header">Morning pollution notifications</string>
+    <string name="settings_notification_header">Pollution notifications</string>
     <string name="settings_notification_time_summary">Daily at %s</string>
+    <string name="settings_notification_min_severity_title">Minimum severity</string>
+    <array name="severities">
+        <item>@string/settings_notification_severity_high</item>
+        <item>@string/settings_notification_severity_moderate</item>
+        <item>@string/settings_notification_severity_low</item>
+    </array>
+    <string name="settings_notification_severity_high">High</string>
+    <string name="settings_notification_severity_moderate">Moderate</string>
+    <string name="settings_notification_severity_low">Low</string>
+    <string name="dialog_notification_min_severity_title">Minimum severity</string>
+    <string name="dialog_notification_min_severity_content">Only show a notification when the pollution level is worse or equal to the specified value.</string>
+    <string name="btn_cancel">Cancel</string>
 </resources>

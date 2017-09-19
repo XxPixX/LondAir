@@ -5,9 +5,12 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
+import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
+import com.innercirclesoftware.londair.data.tfl.ForecastBand;
 import com.innercirclesoftware.londair.utils.CalendarUtils;
 import com.innercirclesoftware.londair.utils.PrefUtils;
 import com.innercirclesoftware.londair.utils.PrimitiveUtils;
+import com.innercirclesoftware.londair.utils.StringUtils;
 
 import java.util.Calendar;
 
@@ -24,6 +27,13 @@ public class PreferenceManagerImpl implements PreferenceManager {
 
     @NonNull private static final String KEY_MORNING_NOTIFICATION_MINUTE = "KEY_MORNING_NOTIFICATION_MINUTE";
     private static final int DEF_VAL_MORNING_NOTIFICATION_MINUTE = 0;
+
+    @NonNull private static final String KEY_MORNING_NOTIFICATION_ENABLED = "KEY_MORNING_NOTIFICATION_ENABLED";
+    private static final boolean DEF_VAL_MORNING_NOTIFICATION_ENABLED = true;
+
+    @NonNull private static final String KEY_MORNING_NOTIFICATION_MIN_SEVERITY = "KEY_MORNING_NOTIFICATION_MIN_SEVERITY";
+    @ForecastBand private static final String DEF_VAL_MORNING_NOTIFICATION_MIN_SEVERITY = CurrentForecast.BAND_LOW;
+
 
     public PreferenceManagerImpl(@NonNull SharedPreferences preferences, @NonNull RxSharedPreferences rxSharedPreferences) {
         this.preferences = preferences;
@@ -45,6 +55,19 @@ public class PreferenceManagerImpl implements PreferenceManager {
     }
 
     @Override
+    public void setMorningNotificationMinSeverity(@ForecastBand String severity) {
+        StringUtils.assertContains(CurrentForecast.ALL_BANDS, severity);
+        Timber.i("Settings morning notification minimum severity to %s", severity);
+        PrefUtils.setString(preferences, KEY_MORNING_NOTIFICATION_MIN_SEVERITY, severity);
+    }
+
+    @Override
+    public void setMorningNotificationEnabled(boolean isChecked) {
+        Timber.i("Settings the morning notification enabled to %s", isChecked);
+        PrefUtils.setBoolean(preferences, KEY_MORNING_NOTIFICATION_ENABLED, isChecked);
+    }
+
+    @Override
     public Observable<Integer> morningNotificationHour() {
         return rxSharedPreferences.getInteger(KEY_MORNING_NOTIFICATION_HOUR, DEF_VAL_MORNING_NOTIFICATION_HOUR)
                 .asObservable();
@@ -59,5 +82,17 @@ public class PreferenceManagerImpl implements PreferenceManager {
     @Override
     public Observable<Calendar> morningNotificationTime() {
         return Observable.combineLatest(morningNotificationHour(), morningNotificationMinute(), CalendarUtils::getCalendarWithHourMinute);
+    }
+
+    @Override
+    public Observable<Boolean> morningNotificationEnabled() {
+        return rxSharedPreferences.getBoolean(KEY_MORNING_NOTIFICATION_ENABLED, DEF_VAL_MORNING_NOTIFICATION_ENABLED)
+                .asObservable();
+    }
+
+    @Override
+    public Observable<String> morningNotificationMinSeverity() {
+        return rxSharedPreferences.getString(KEY_MORNING_NOTIFICATION_MIN_SEVERITY, DEF_VAL_MORNING_NOTIFICATION_MIN_SEVERITY)
+                .asObservable();
     }
 }
