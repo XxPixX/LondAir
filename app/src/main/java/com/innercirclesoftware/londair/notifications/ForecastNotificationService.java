@@ -5,13 +5,11 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.media.AudioAttributes;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.media.AudioAttributesCompat;
 
 import com.innercirclesoftware.londair.LondAir;
 import com.innercirclesoftware.londair.R;
@@ -58,7 +56,6 @@ public class ForecastNotificationService extends IntentService {
                 .map(currentForecasts -> currentForecasts.get(0))
                 .toObservable()
                 .withLatestFrom(preferenceManager.notificationMinSeverity().firstOrError().toObservable(), PreferenceForecastHolder::new)
-                .doOnNext(Object::toString)
                 .filter(this::filterForecast)
                 .map(preferenceForecastHolder -> preferenceForecastHolder.forecast)
                 .doOnError(throwable -> Timber.w(throwable, "Failed to get air quality in ForecastNotificationService"))
