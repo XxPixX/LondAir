@@ -14,6 +14,7 @@ class NotificationPreferences {
         this.enabled = enabled;
         this.time = (Calendar) time.clone();
         this.time.set(Calendar.MILLISECOND, 0);
+        this.time.set(Calendar.SECOND, 0);
         while (CalendarUtils.isPast(this.time)) this.time.add(Calendar.DATE, 1);
     }
 
