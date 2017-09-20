@@ -26,7 +26,7 @@ import timber.log.Timber;
 
 public class ForecastNotificationService extends IntentService {
 
-    private static final int MORNING_NOTIFICATION_ID = 0;
+    private static final int POLLUTION_NOTIFICATION_ID = 0;
 
     @Inject NotificationManagerCompat notificationManager;
     @Inject TflService tflService;
@@ -89,7 +89,7 @@ public class ForecastNotificationService extends IntentService {
                 .setUsage(AudioAttributes.USAGE_NOTIFICATION)
                 .build();
 
-        Notification morningNotification = new Notification.Builder(this)
+        Notification pollutionNotification = new Notification.Builder(this)
                 .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .setCategory(Notification.CATEGORY_STATUS)
                 .setStyle(new Notification.BigTextStyle().bigText(today.getForecastSummary()))
@@ -102,7 +102,7 @@ public class ForecastNotificationService extends IntentService {
                 .setContentText(today.getForecastSummary())
                 .build();
 
-        notificationManager.notify(MORNING_NOTIFICATION_ID, morningNotification);
+        notificationManager.notify(POLLUTION_NOTIFICATION_ID, pollutionNotification);
     }
 
     @NonNull

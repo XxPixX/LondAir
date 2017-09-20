@@ -43,7 +43,7 @@ class SettingsPresenterImpl implements SettingsPresenter {
         this.view = view;
 
         //check if the preferences values have been fetched before updating the view
-        if (formattedNotifTime != null) view.setMorningNotificationTime(formattedNotifTime);
+        if (formattedNotifTime != null) view.setNotificationTime(formattedNotifTime);
         if (notifEnabled != null) view.setNotificationEnabled(notifEnabled);
         if (minNotifSeverity != null) view.setNotificationSeverity(minNotifSeverity);
     }
@@ -76,7 +76,7 @@ class SettingsPresenterImpl implements SettingsPresenter {
                 .subscribe((@NonNull String formattedTime) -> {
                     Timber.i("Notification time changed to %s", formattedTime);
                     this.formattedNotifTime = formattedTime;
-                    if (view != null) view.setMorningNotificationTime(formattedTime);
+                    if (view != null) view.setNotificationTime(formattedTime);
                 });
     }
 
@@ -113,7 +113,7 @@ class SettingsPresenterImpl implements SettingsPresenter {
     @Override
     public void onNotificationSwitchChecked(boolean isChecked) {
         Timber.i("onNotificationSwitchChecked, isChecked=%s", isChecked);
-        preferenceManager.setMorningNotificationEnabled(isChecked);
+        preferenceManager.setNotificationEnabled(isChecked);
     }
 
     @Override
@@ -139,13 +139,13 @@ class SettingsPresenterImpl implements SettingsPresenter {
     @Override
     public void onNotificationTimeSelected(int hour, int minute) {
         Timber.i("onNotificationTimeClicked with hour %s, minute %s", hour, minute);
-        preferenceManager.setMorningNotificationHour(hour);
-        preferenceManager.setMorningNotificationMinute(minute);
+        preferenceManager.setNotificationHour(hour);
+        preferenceManager.setNotificationMinute(minute);
     }
 
     @Override
     public void onMinimumSeverityChanged(@ForecastBand String newSeverity) {
         Timber.i("onMinimumSeverityChanged with severity %s", newSeverity);
-        preferenceManager.setMorningNotificationMinSeverity(newSeverity);
+        preferenceManager.setNotificationMinSeverity(newSeverity);
     }
 }

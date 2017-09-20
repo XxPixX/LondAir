@@ -10,25 +10,25 @@ import io.reactivex.Observable;
 
 public interface PreferenceManager {
 
-    void setMorningNotificationHour(@IntRange(from = 0, to = 23) int hour);
+    void setNotificationHour(@IntRange(from = 0, to = 23) int hour);
 
-    void setMorningNotificationMinute(@IntRange(from = 0, to = 59) int minute);
+    void setNotificationMinute(@IntRange(from = 0, to = 59) int minute);
 
-    void setMorningNotificationMinSeverity(@ForecastBand String severity);
+    void setNotificationMinSeverity(@ForecastBand String severity);
 
-    void setMorningNotificationEnabled(boolean isChecked);
+    void setNotificationEnabled(boolean isChecked);
 
     /**
-     * @return an observable which when subscribed to, emits the hour for when the morning notification is scheduled.
+     * @return an observable which when subscribed to, emits the hour for when the notification is scheduled.
      * If the user changes the hour, the observable will emit the new hour. The hour is always from 0 to 23.
      */
-    Observable<Integer> morningNotificationHour();
+    Observable<Integer> notificationHour();
 
     /**
-     * @return and observable which when subscribed to, emits the minute for when the morning notification is scheduled.
+     * @return and observable which when subscribed to, emits the minute for when the notification is scheduled.
      * If the user changes the minute, the observable will emit the new minute. The minutes is always from 0 to 59.
      */
-    Observable<Integer> morningNotificationMinute();
+    Observable<Integer> notificationMinute();
 
     /**
      * @return a calendar class containing the hour and minute of when the notification time should go off.
@@ -38,7 +38,7 @@ public interface PreferenceManager {
 
 
     /**
-     * @return an observable which when subscribed to, emits whether the morning notification is enabled.
+     * @return an observable which when subscribed to, emits whether the notification is enabled.
      * If the user disables or enables notification, the observable will emit the new user preferences.
      */
     Observable<Boolean> notificationEnabled();

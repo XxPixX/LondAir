@@ -66,7 +66,7 @@ public class SettingsActivity extends BaseActivity implements SettingsView {
     }
 
     @Override
-    public void setMorningNotificationTime(@NonNull String time) {
+    public void setNotificationTime(@NonNull String time) {
         notificationTimeSummary.setText(getString(R.string.settings_notification_time_summary, time));
     }
 

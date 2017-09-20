@@ -18,7 +18,7 @@ import timber.log.Timber;
 
 public class NotificationScheduler {
 
-    private static final int MORNING_NOTIFICATION_REQUEST_CODE = 0;
+    private static final int POLLUTION_NOTIFICATION_REQUEST_CODE = 0;
     @NonNull private final Context context;
     @NonNull private final AlarmManager alarmManager;
 
@@ -34,31 +34,31 @@ public class NotificationScheduler {
     }
 
     private void handleNotificationPreferenceChanged(@NonNull NotificationPreferences preferences) {
-        if (preferences.isEnabled()) scheduleNotification(preferences.getTime());
-        else unscheduleMorningNotification();
+        if (preferences.isEnabled()) schedulePollutionNotification(preferences.getTime());
+        else unschedulePollutionNotification();
     }
 
-    private void scheduleNotification(@NonNull Calendar time) {
+    private void schedulePollutionNotification(@NonNull Calendar time) {
         Timber.i("Scheduling pollution notification for %s", time.getTime());
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 time.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY,
-                getMorningNotificationPendingIntent()
+                getPollutionNotificationPendingIntent()
         );
     }
 
-    private void unscheduleMorningNotification() {
+    private void unschedulePollutionNotification() {
         Timber.i("Canceling pollution notification");
-        alarmManager.cancel(getMorningNotificationPendingIntent());
+        alarmManager.cancel(getPollutionNotificationPendingIntent());
     }
 
     @NonNull
-    private PendingIntent getMorningNotificationPendingIntent() {
+    private PendingIntent getPollutionNotificationPendingIntent() {
         Intent notificationIntent = new Intent(context, ForecastNotificationService.class);
         return PendingIntent.getService(
                 context,
-                MORNING_NOTIFICATION_REQUEST_CODE,
+                POLLUTION_NOTIFICATION_REQUEST_CODE,
                 notificationIntent,
                 0 //no flags for the intent
         );
