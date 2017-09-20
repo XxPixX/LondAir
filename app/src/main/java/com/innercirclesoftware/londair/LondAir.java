@@ -58,7 +58,7 @@ public class LondAir extends Application {
     }
 
     private static LondAir from(@NonNull Context context) {
-        return (LondAir) context;
+        return (LondAir) context.getApplicationContext();
     }
 
     public static ApplicationComponent getApplicationComponent(@NonNull Context context) {

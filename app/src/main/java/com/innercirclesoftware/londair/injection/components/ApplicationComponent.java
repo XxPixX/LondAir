@@ -8,6 +8,7 @@ import com.innercirclesoftware.londair.injection.modules.NetworkModule;
 import com.innercirclesoftware.londair.injection.modules.NotificationModule;
 import com.innercirclesoftware.londair.injection.modules.PreferencesModule;
 import com.innercirclesoftware.londair.notifications.ForecastNotificationService;
+import com.innercirclesoftware.londair.notifications.NotificationSchedulerReceiver;
 
 import javax.inject.Singleton;
 
@@ -30,4 +31,5 @@ public interface ApplicationComponent {
 
     void inject(ForecastNotificationService service);
 
+    void inject(NotificationSchedulerReceiver receiver);
 }

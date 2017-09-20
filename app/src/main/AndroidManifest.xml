@@ -3,6 +3,7 @@
           package="com.innercirclesoftware.londair">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:name=".LondAir"
@@ -26,6 +27,19 @@
             android:parentActivityName=".ui.main.MainActivity"/>
 
         <service android:name=".notifications.ForecastNotificationService"/>
+
+        <receiver android:name=".notifications.ForecastBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".notifications.ForecastExternalStorageMountedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.EXTERNAL_APPLICATIONS_AVAILABLE"/>
+            </intent-filter>
+        </receiver>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="9422b9ad525647e099ade845d6185ec84439fdd1"/>
