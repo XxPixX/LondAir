@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import com.innercirclesoftware.londair.data.tfl.TflService;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 import com.innercirclesoftware.londair.injection.components.DaggerApplicationComponent;
@@ -33,7 +34,7 @@ public class LondAir extends Application {
 
     private void initFabric() {
         Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics())
+                .kits(new Crashlytics(), new Answers())
                 .debuggable(BuildConfig.DEBUG)
                 .build();
 
