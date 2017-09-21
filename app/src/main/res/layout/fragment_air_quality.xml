@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:id="@+id/container"
@@ -49,7 +50,7 @@
                 <TextView
                     android:id="@+id/pm_25_title"
                     style="@style/MiniCardTitle"
-                    android:text="@string/pollutant_pm25"/>
+                    tools:text="PM₂₅"/>
 
                 <TextView
                     android:id="@+id/pm_25_subtitle"
@@ -68,7 +69,7 @@
                     android:id="@+id/pm_10_title"
                     style="@style/MiniCardTitle"
                     android:layout_below="@id/pm_25_subtitle"
-                    android:text="@string/pollutant_pm10"/>
+                    tools:text="PM₁₀"/>
 
                 <TextView
                     android:id="@+id/pm_10_subtitle"
@@ -84,29 +85,29 @@
                     android:layout_alignTop="@id/pm_10_title"/>
 
                 <TextView
-                    android:id="@+id/no3_title"
+                    android:id="@+id/no2_title"
                     style="@style/MiniCardTitle"
                     android:layout_below="@id/pm_10_subtitle"
-                    android:text="@string/pollutant_no2"/>
+                    tools:text="NO₂"/>
 
                 <TextView
-                    android:id="@+id/no3_subtitle"
+                    android:id="@+id/no2_subtitle"
                     style="@style/MiniCardSubtitle"
-                    android:layout_below="@id/no3_title"
+                    android:layout_below="@id/no2_title"
                     android:layout_toLeftOf="@+id/summary_no2"
                     android:text="@string/pollutant_no2_name"/>
 
                 <TextView
                     android:id="@+id/summary_no2"
                     style="@style/MiniCardSummary"
-                    android:layout_alignBottom="@id/no3_subtitle"
-                    android:layout_alignTop="@id/no3_title"/>
+                    android:layout_alignBottom="@id/no2_subtitle"
+                    android:layout_alignTop="@id/no2_title"/>
 
                 <TextView
                     android:id="@+id/o3_title"
                     style="@style/MiniCardTitle"
-                    android:layout_below="@id/no3_subtitle"
-                    android:text="@string/pollutant_o3"/>
+                    android:layout_below="@id/no2_subtitle"
+                    tools:text="O₃"/>
 
                 <TextView
                     android:id="@+id/o3_subtitle"
@@ -125,7 +126,7 @@
                     android:id="@+id/so2_title"
                     style="@style/MiniCardTitle"
                     android:layout_below="@id/o3_subtitle"
-                    android:text="@string/pollutant_so3"/>
+                    tools:text="SO₂"/>
 
                 <TextView
                     android:id="@+id/so2_subtitle"

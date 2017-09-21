@@ -6,6 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.SubscriptSpan;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
@@ -31,6 +34,11 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
     private static final String ARG_KEY_POSITION = "ARG_KEY_POSITION";
 
+    /**
+     * Defines the relative text size of pollutant subscripts relative to the standard texts size, e.g. the subscript "2" in "NO2"
+     */
+    private static final float PARTICLE_SUBSCRIPT_RELATIVE_SIZE = 0.8f;
+
     @Inject AirQualityPresenter presenter;
     @Inject MainPresenter mainPresenter;
 
@@ -39,6 +47,12 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     @BindView(R.id.card_pollution_summary) CardView cardPollutionSummary;
     @BindView(R.id.forecast_band) TextView forecastBand;
     @BindView(R.id.forecast_summary) TextView forecastSummary;
+
+    @BindView(R.id.pm_25_title) TextView titlePm25;
+    @BindView(R.id.pm_10_title) TextView titlePm10;
+    @BindView(R.id.no2_title) TextView titleNo2;
+    @BindView(R.id.o3_title) TextView titleO3;
+    @BindView(R.id.so2_title) TextView titleSo2;
 
     @BindView(R.id.summary_pm10) TextView summaryPm10;
     @BindView(R.id.summary_pm25) TextView summaryPm25;
@@ -71,6 +85,7 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setupPollutantsTextAppearance();
         inject();
         registerPresenter(presenter);
 
@@ -80,6 +95,36 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
         isToday = position == 0;
         if (isToday) mainPresenter.attachTodaysView(this);
         else mainPresenter.attachTomorrowsView(this);
+    }
+
+    /**
+     * Setup the pollutant text appearances by adding subscripts and changing the subscripts text size
+     */
+    private void setupPollutantsTextAppearance() {
+        SpannableString pm25 = new SpannableString("PM2.5");
+        pm25.setSpan(new SubscriptSpan(), 2, 5, 0);
+        pm25.setSpan(new RelativeSizeSpan(PARTICLE_SUBSCRIPT_RELATIVE_SIZE), 2, 5, 0);
+        titlePm25.setText(pm25, TextView.BufferType.SPANNABLE);
+
+        SpannableString pm10 = new SpannableString("PM10");
+        pm10.setSpan(new SubscriptSpan(), 2, 4, 0);
+        pm10.setSpan(new RelativeSizeSpan(PARTICLE_SUBSCRIPT_RELATIVE_SIZE), 2, 4, 0);
+        titlePm10.setText(pm10, TextView.BufferType.SPANNABLE);
+
+        SpannableString no2 = new SpannableString("NO2");
+        no2.setSpan(new SubscriptSpan(), 2, 3, 0);
+        no2.setSpan(new RelativeSizeSpan(PARTICLE_SUBSCRIPT_RELATIVE_SIZE), 2, 3, 0);
+        titleNo2.setText(no2, TextView.BufferType.SPANNABLE);
+
+        SpannableString o3 = new SpannableString("O3");
+        o3.setSpan(new SubscriptSpan(), 1, 2, 0);
+        o3.setSpan(new RelativeSizeSpan(PARTICLE_SUBSCRIPT_RELATIVE_SIZE), 1, 2, 0);
+        titleO3.setText(o3, TextView.BufferType.SPANNABLE);
+
+        SpannableString so2 = new SpannableString("SO2");
+        so2.setSpan(new SubscriptSpan(), 2, 3, 0);
+        so2.setSpan(new RelativeSizeSpan(PARTICLE_SUBSCRIPT_RELATIVE_SIZE), 2, 3, 0);
+        titleSo2.setText(so2, TextView.BufferType.SPANNABLE);
     }
 
     @Override
