@@ -44,6 +44,7 @@ class MainPresenterImpl implements MainPresenter {
     public void attachTodaysView(@NonNull AirQualityView todaysView) {
         Timber.v("Attaching todays view %s to %s", todaysView, this);
         this.todaysView = todaysView;
+        if (todaysForecast != null) this.todaysView.onShowForecastRequested(todaysForecast);
     }
 
     @Override
@@ -56,6 +57,7 @@ class MainPresenterImpl implements MainPresenter {
     public void attachTomorrowsView(@NonNull AirQualityView tomorrowsView) {
         Timber.v("Attaching tomorrows view %s to %s", tomorrowsView, this);
         this.tomorrowsView = tomorrowsView;
+        if (tomorrowsForecast != null) tomorrowsView.onShowForecastRequested(tomorrowsForecast);
     }
 
     @Override
