@@ -11,4 +11,6 @@ public interface AirQualityView extends BaseView {
 
     void onShowForecastRequested(@NonNull CurrentForecast forecast);
 
+    void showDetailedPollutantSummaries(boolean detailed);
+
 }

@@ -4,15 +4,18 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.transition.Slide;
+import android.support.transition.Transition;
+import android.support.transition.TransitionManager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.SubscriptSpan;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
-import android.transition.TransitionManager;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,11 +26,13 @@ import com.innercirclesoftware.londair.ui.main.MainActivity;
 import com.innercirclesoftware.londair.ui.main.MainComponent;
 import com.innercirclesoftware.londair.ui.main.MainPresenter;
 import com.innercirclesoftware.londair.utils.PrimitiveUtils;
+import com.innercirclesoftware.londair.utils.ViewUtils;
 
 import javax.inject.Inject;
 
 import butterknife.BindColor;
 import butterknife.BindView;
+import butterknife.OnClick;
 import timber.log.Timber;
 
 public class AirQualityFragment extends BaseFragment implements AirQualityView {
@@ -42,7 +47,10 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     @Inject AirQualityPresenter presenter;
     @Inject MainPresenter mainPresenter;
 
+    @BindView(R.id.nested_scroll_view) NestedScrollView nestedScrollView;
     @BindView(R.id.container) LinearLayout container;
+
+    @BindView(R.id.card_pollutants) CardView pollutantsCard;
 
     @BindView(R.id.card_pollution_summary) CardView cardPollutionSummary;
     @BindView(R.id.forecast_band) TextView forecastBand;
@@ -54,11 +62,20 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     @BindView(R.id.o3_title) TextView titleO3;
     @BindView(R.id.so2_title) TextView titleSo2;
 
+    @BindView(R.id.pm_25_subtitle) TextView subtitlePm25;
+    @BindView(R.id.pm_10_subtitle) TextView subtitle10;
+    @BindView(R.id.no2_subtitle) TextView subtitleNo2;
+    @BindView(R.id.o3_subtitle) TextView subtitleO3;
+    @BindView(R.id.so2_subtitle) TextView subtitleSo2;
+
     @BindView(R.id.summary_pm10) TextView summaryPm10;
     @BindView(R.id.summary_pm25) TextView summaryPm25;
     @BindView(R.id.summary_no2) TextView summaryNo2;
     @BindView(R.id.summary_o3) TextView summaryO3;
     @BindView(R.id.summary_so2) TextView summarySo2;
+
+    @BindView(R.id.divider) View pollutantsGeneralAdviceDivider;
+    @BindView(R.id.pollutants_general_advice) TextView pollutantsGeneralAdvice;
 
     @BindView(R.id.forecast_text) TextView forecastText;
 
@@ -187,13 +204,35 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
             cardPollutionSummary.setCardBackgroundColor(cardColour);
         }
 
-        Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.air_quality_transition);
+        Transition transition = new Slide(Gravity.BOTTOM);
+        transition.setDuration(600);
+        transition.setInterpolator(new DecelerateInterpolator(2.5f));
+
+        if (ViewUtils.isVisible(container)) ViewUtils.hide(container);
         TransitionManager.beginDelayedTransition(container, transition);
-        container.setVisibility(View.VISIBLE);
+        ViewUtils.show(container);
     }
 
     @Override
     public void onShowForecastRequested(@NonNull CurrentForecast forecast) {
         presenter.onShowForecastRequested(forecast);
+    }
+
+    @Override
+    public void showDetailedPollutantSummaries(boolean detailed) {
+        TransitionManager.beginDelayedTransition(nestedScrollView);
+        int maxLineCount = detailed ? Integer.MAX_VALUE : 2;
+        subtitlePm25.setMaxLines(maxLineCount);
+        subtitle10.setMaxLines(maxLineCount);
+        subtitleNo2.setMaxLines(maxLineCount);
+        subtitleO3.setMaxLines(maxLineCount);
+        subtitleSo2.setMaxLines(maxLineCount);
+        ViewUtils.show(pollutantsGeneralAdvice, detailed);
+        ViewUtils.show(pollutantsGeneralAdviceDivider, detailed);
+    }
+
+    @OnClick(R.id.card_pollutants)
+    protected void onPollutantsCardClicked() {
+        presenter.onPollutantsCardClicked();
     }
 }

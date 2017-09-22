@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Londair</string>
 
-    <string name="pollutant_no2_name">Nitrogen dioxide</string>
-    <string name="pollutant_o3_name">Ozone</string>
-    <string name="pollutant_so3_name">Sulfur dioxide</string>
-
-    <string name="pollutant_pm25_description">Fine particles: less than 2.5μm in diameter</string>
-    <string name="pollutant_pm10_description">Coarse dust particles: between 2.5μm and 10μm in diameter</string>
+    <string name="pollutant_pm25_description">Fine particles: less than 2.5μm in diameter. Particles of this size are drawn deep into the lungs causing irritation.</string>
+    <string name="pollutant_pm10_description">Coarse dust particles: between 2.5μm and 10μm in diameter. Particles of this size tend to get trapped in the nose, throat, and mouth.</string>
+    <string name="pollutant_no2_description">Nitrogen dioxide: Main source are from vehicles so avoid exposure to traffic.</string>
+    <string name="pollutant_o3_description">Ozone: </string>
+    <string name="pollutant_so3_description">Sulfur dioxide: Most common source is from fossil fuel combustion at power plants.</string>
+    <string name="pollutants_general_advice">All pollutants cause respiratory problems such as coughing, colds, flu, and bronchitis. They can also cause more frequent and more intense asthma attacks. Children, pregnant women, elderly, physically active are most vulnerable.</string>
 
     <string name="refreshed">Refreshed!</string>
     <string name="no_internet_connection">No internet connection!</string>

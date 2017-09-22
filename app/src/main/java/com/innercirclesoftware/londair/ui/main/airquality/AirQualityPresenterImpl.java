@@ -12,10 +12,13 @@ class AirQualityPresenterImpl implements AirQualityPresenter {
     @Nullable private AirQualityView view;
     @Nullable private CurrentForecast forecast;
 
+    private boolean detailedPollutantSummaries = false;
+
     @Override
     public void attachView(@NonNull AirQualityView view) {
         this.view = view;
         if (forecast != null) view.showForecast(forecast);
+        view.showDetailedPollutantSummaries(detailedPollutantSummaries);
     }
 
     @Override
@@ -34,5 +37,13 @@ class AirQualityPresenterImpl implements AirQualityPresenter {
 
         if (view != null) view.showForecast(forecast);
         else Timber.w("onShowForecastRequested but the view is null");
+    }
+
+    @Override
+    public void onPollutantsCardClicked() {
+        this.detailedPollutantSummaries = !detailedPollutantSummaries;
+
+        if (view != null) view.showDetailedPollutantSummaries(detailedPollutantSummaries);
+        else Timber.w("onPollutantsCardClicked but the view is null");
     }
 }
