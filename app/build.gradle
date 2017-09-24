@@ -47,7 +47,6 @@ def version = ext.version = [
         dagger           : "2.11",
         butterknife      : "8.6.0",
         retrofit         : "2.3.0",
-        okhttpinterceptor: "1.0.4",
         leak_canary      : "1.5.1"
 ];
 
@@ -92,10 +91,6 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
-
-    //okhttp notification interceptor
-    debugCompile "com.readystatesoftware.chuck:library:${version.okhttpinterceptor}"
-    releaseCompile "com.readystatesoftware.chuck:library-no-op:${version.okhttpinterceptor}"
 
     //leak canary
     debugCompile "com.squareup.leakcanary:leakcanary-android:${version.leak_canary}"

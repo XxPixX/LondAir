@@ -1,6 +1,6 @@
 package com.innercirclesoftware.londair.injection.components;
 
-import com.innercirclesoftware.londair.LondAir;
+import com.innercirclesoftware.londair.Londair;
 import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
 import com.innercirclesoftware.londair.data.tfl.TflService;
 import com.innercirclesoftware.londair.injection.modules.AndroidModule;
@@ -27,7 +27,7 @@ public interface ApplicationComponent {
 
     TflService tflService();
 
-    void inject(LondAir app);
+    void inject(Londair app);
 
     void inject(ForecastNotificationService service);
 

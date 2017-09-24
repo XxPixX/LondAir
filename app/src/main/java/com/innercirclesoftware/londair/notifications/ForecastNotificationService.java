@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.innercirclesoftware.londair.LondAir;
+import com.innercirclesoftware.londair.Londair;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
 import com.innercirclesoftware.londair.data.tfl.Air;
@@ -45,7 +45,7 @@ public class ForecastNotificationService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        LondAir.getApplicationComponent(getApplicationContext()).inject(this);
+        Londair.getApplicationComponent(getApplicationContext()).inject(this);
     }
 
     @Override

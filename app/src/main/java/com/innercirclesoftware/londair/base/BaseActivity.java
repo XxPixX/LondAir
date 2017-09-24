@@ -12,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.innercirclesoftware.londair.LondAir;
+import com.innercirclesoftware.londair.Londair;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 import com.innercirclesoftware.londair.ui.Message;
@@ -89,8 +89,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Layoutab
     }
 
     @NonNull
-    private LondAir getApp() {
-        return (LondAir) getApplication();
+    private Londair getApp() {
+        return (Londair) getApplication();
     }
 
     @Override

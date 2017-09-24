@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-public class LondAir extends Application {
+public class Londair extends Application {
 
     private ApplicationComponent component;
 
@@ -58,8 +58,8 @@ public class LondAir extends Application {
         return component;
     }
 
-    private static LondAir from(@NonNull Context context) {
-        return (LondAir) context.getApplicationContext();
+    private static Londair from(@NonNull Context context) {
+        return (Londair) context.getApplicationContext();
     }
 
     public static ApplicationComponent getApplicationComponent(@NonNull Context context) {
