@@ -40,10 +40,10 @@ class AirQualityPresenterImpl implements AirQualityPresenter {
     }
 
     @Override
-    public void onPollutantsCardClicked() {
+    public void onExpandClicked() {
         this.detailedPollutantSummaries = !detailedPollutantSummaries;
 
         if (view != null) view.showDetailedPollutantSummaries(detailedPollutantSummaries);
-        else Timber.w("onPollutantsCardClicked but the view is null");
+        else Timber.w("onExpandClicked but the view is null");
     }
 }

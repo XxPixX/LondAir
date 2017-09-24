@@ -29,4 +29,5 @@
     <string name="dialog_notification_min_severity_title">Minimum severity</string>
     <string name="dialog_notification_min_severity_content">Only show a notification when the pollution level is worse or equal to the specified value.</string>
     <string name="btn_cancel">Cancel</string>
+    <string name="btn_details">Details</string>
 </resources>

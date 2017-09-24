@@ -1,13 +1,21 @@
 package com.innercirclesoftware.londair.ui.main.airquality;
 
 import android.graphics.Color;
+import android.graphics.drawable.Animatable2;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.transition.AutoTransition;
+import android.support.transition.Fade;
 import android.support.transition.Slide;
 import android.support.transition.Transition;
 import android.support.transition.TransitionManager;
+import android.support.transition.TransitionSet;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.SpannableString;
@@ -76,6 +84,8 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
     @BindView(R.id.divider) View pollutantsGeneralAdviceDivider;
     @BindView(R.id.pollutants_general_advice) TextView pollutantsGeneralAdvice;
+
+    @BindView(R.id.expand_btn) AppCompatImageView expandImage;
 
     @BindView(R.id.forecast_text) TextView forecastText;
 
@@ -220,7 +230,23 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
     @Override
     public void showDetailedPollutantSummaries(boolean detailed) {
-        TransitionManager.beginDelayedTransition(nestedScrollView);
+        Transition changeBounds = new AutoTransition();
+        changeBounds.setInterpolator(new FastOutSlowInInterpolator());
+        changeBounds.setDuration(300);
+        changeBounds.excludeTarget(pollutantsGeneralAdvice, true);
+        changeBounds.excludeTarget(pollutantsGeneralAdviceDivider, true);
+
+        Transition generalAdviceTransition = new Fade(detailed ? Fade.IN : Fade.OUT);
+        generalAdviceTransition.addTarget(pollutantsGeneralAdvice);
+        generalAdviceTransition.addTarget(pollutantsGeneralAdviceDivider);
+        generalAdviceTransition.setDuration(300);
+
+        TransitionSet transitions = new TransitionSet();
+        transitions.addTransition(generalAdviceTransition);
+        transitions.addTransition(changeBounds);
+        transitions.setOrdering(TransitionSet.ORDERING_TOGETHER);
+
+        TransitionManager.beginDelayedTransition(nestedScrollView, transitions);
         int maxLineCount = detailed ? Integer.MAX_VALUE : 2;
         subtitlePm25.setMaxLines(maxLineCount);
         subtitle10.setMaxLines(maxLineCount);
@@ -229,10 +255,24 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
         subtitleSo2.setMaxLines(maxLineCount);
         ViewUtils.show(pollutantsGeneralAdvice, detailed);
         ViewUtils.show(pollutantsGeneralAdviceDivider, detailed);
+
+        expandImage.setImageResource(detailed ? R.drawable.ic_animated_vector_chevron_up : R.drawable.ic_animated_vector_chevron_down);
+        AnimatedVectorDrawable expandImageDrawable = (AnimatedVectorDrawable) expandImage.getDrawable();
+        expandImageDrawable.registerAnimationCallback(new Animatable2.AnimationCallback() {
+            @Override
+            public void onAnimationEnd(Drawable drawable) {
+                super.onAnimationEnd(drawable);
+                expandImageDrawable.clearAnimationCallbacks();
+                expandImage.setImageResource(detailed ? R.drawable.ic_animated_vector_chevron_down : R.drawable.ic_animated_vector_chevron_up);
+            }
+        });
+
+        expandImageDrawable.start();
+
     }
 
-    @OnClick(R.id.card_pollutants)
+    @OnClick({R.id.card_pollutants, R.id.expand_btn})
     protected void onPollutantsCardClicked() {
-        presenter.onPollutantsCardClicked();
+        presenter.onExpandClicked();
     }
 }

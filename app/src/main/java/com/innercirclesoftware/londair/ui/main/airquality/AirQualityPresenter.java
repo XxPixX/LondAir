@@ -9,5 +9,5 @@ interface AirQualityPresenter extends BasePresenter<AirQualityView> {
 
     void onShowForecastRequested(@NonNull CurrentForecast forecast);
 
-    void onPollutantsCardClicked();
+    void onExpandClicked();
 }
