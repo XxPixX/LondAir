@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="integer_max_value">2147483647</integer>
+    <integer name="expand_collapse_duration">250</integer>
 </resources>

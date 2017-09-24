@@ -7,13 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.graphics.drawable.Animatable2Compat;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
-import android.support.transition.AutoTransition;
-import android.support.transition.Fade;
-import android.support.transition.Slide;
-import android.support.transition.Transition;
-import android.support.transition.TransitionManager;
-import android.support.transition.TransitionSet;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
@@ -21,6 +14,12 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.SubscriptSpan;
+import android.transition.AutoTransition;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionManager;
+import android.transition.TransitionSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -39,6 +38,7 @@ import com.innercirclesoftware.londair.utils.ViewUtils;
 import javax.inject.Inject;
 
 import butterknife.BindColor;
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
@@ -98,6 +98,9 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
     @BindColor(android.R.color.secondary_text_dark) int whiteTextSubtitleColour;
     @BindColor(android.R.color.primary_text_light) int blackTextTitleColour;
     @BindColor(android.R.color.secondary_text_light) int blackTextSubtitleColour;
+
+    @BindInt((R.integer.expand_collapse_duration)) int expandCollapseDuration;
+
     private boolean isToday = false;
 
     public static AirQualityFragment getInstance(int position) {
@@ -230,21 +233,20 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
     @Override
     public void showDetailedPollutantSummaries(boolean detailed) {
+        //TODO interpolators don't seem to work... on any of the following 3 transitions, needs investigatin
         Transition changeBounds = new AutoTransition();
-        changeBounds.setInterpolator(new FastOutSlowInInterpolator());
-        changeBounds.setDuration(300);
         changeBounds.excludeTarget(pollutantsGeneralAdvice, true);
         changeBounds.excludeTarget(pollutantsGeneralAdviceDivider, true);
 
         Transition generalAdviceTransition = new Fade(detailed ? Fade.IN : Fade.OUT);
         generalAdviceTransition.addTarget(pollutantsGeneralAdvice);
         generalAdviceTransition.addTarget(pollutantsGeneralAdviceDivider);
-        generalAdviceTransition.setDuration(300);
 
         TransitionSet transitions = new TransitionSet();
         transitions.addTransition(generalAdviceTransition);
         transitions.addTransition(changeBounds);
         transitions.setOrdering(TransitionSet.ORDERING_TOGETHER);
+        transitions.setDuration(expandCollapseDuration);
 
         TransitionManager.beginDelayedTransition(nestedScrollView, transitions);
         int maxLineCount = detailed ? Integer.MAX_VALUE : 2;
