@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Londair</string>
 
-    <string name="pollutant_pm25_description">Fine particles: less than 2.5μm in diameter. Particles of this size are drawn deep into the lungs causing irritation.</string>
-    <string name="pollutant_pm10_description">Coarse dust particles: between 2.5μm and 10μm in diameter. Particles of this size tend to get trapped in the nose, throat, and mouth.</string>
-    <string name="pollutant_no2_description">Nitrogen dioxide: Main source are from vehicles so avoid exposure to traffic.</string>
-    <string name="pollutant_o3_description">Ozone: </string>
-    <string name="pollutant_so3_description">Sulfur dioxide: Most common source is from fossil fuel combustion at power plants.</string>
-    <string name="pollutants_general_advice">All pollutants cause respiratory problems such as coughing, colds, flu, and bronchitis. They can also cause more frequent and more intense asthma attacks. Children, pregnant women, elderly, physically active are most vulnerable.</string>
+    <string name="pollutant_pm25_description">Fine particles: less than 2.5μm in diameter. Particles of this size are drawn deep into the lungs causing irritation. Caused by all types of combustion, including vehicles, power plants, residential wood burning, forest fires, agricultural burning, and some industrial processes.</string>
+    <string name="pollutant_pm10_description">Coarse dust particles: between 2.5μm and 10μm in diameter. Particles of this size tend to get trapped in the nose, throat, and mouth. Sources include grinding operations or dust stirred up by vehicles/</string>
+    <string name="pollutant_no2_description">Nitrogen dioxide: Main source are from vehicles so avoid exposure to traffic. Nitrogen dioxide creates ozone when exposed to sunlight.</string>
+    <string name="pollutant_o3_description">Ozone: forms near ground level when air pollution reacts chemically in the presence of sunlight. More likely to form during warmer months when there is more sunlight. Schedule outdoor activity for mornings/evenings when ozone levels are usually lower.</string>
+    <string name="pollutant_so3_description">Sulfur dioxide: An irritant gas that is removed by the nasal passages. Most common source is from fossil fuel combustion at power plants, refineries, and industrial boilers. Usually only moderate activity that trigger mouth breathing triggers health effects.</string>
+    <string name="pollutants_general_advice">All pollutants cause respiratory problems such as coughing, colds, flu, and bronchitis. They can also cause more frequent and more intense asthma attacks. Children, pregnant women, elderly, physically active are most vulnerable. Try to avoid exercise near roads or industrial complexes. Close windows if close to popular roads.</string>
 
     <string name="refreshed">Refreshed!</string>
     <string name="no_internet_connection">No internet connection!</string>
