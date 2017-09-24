@@ -4,6 +4,6 @@
 
     <target
         android:name="group"
-        android:animation="@anim/rotate_clockwise"/>
+        android:animation="@animator/rotate_clockwise"/>
 
 </animated-vector>

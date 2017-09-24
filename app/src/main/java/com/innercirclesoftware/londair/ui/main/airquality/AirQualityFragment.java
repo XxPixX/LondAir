@@ -1,12 +1,12 @@
 package com.innercirclesoftware.londair.ui.main.airquality;
 
 import android.graphics.Color;
-import android.graphics.drawable.Animatable2;
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.graphics.drawable.Animatable2Compat;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.transition.AutoTransition;
 import android.support.transition.Fade;
 import android.support.transition.Slide;
@@ -256,19 +256,22 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
         ViewUtils.show(pollutantsGeneralAdvice, detailed);
         ViewUtils.show(pollutantsGeneralAdviceDivider, detailed);
 
-        expandImage.setImageResource(detailed ? R.drawable.ic_animated_vector_chevron_up : R.drawable.ic_animated_vector_chevron_down);
-        AnimatedVectorDrawable expandImageDrawable = (AnimatedVectorDrawable) expandImage.getDrawable();
-        expandImageDrawable.registerAnimationCallback(new Animatable2.AnimationCallback() {
-            @Override
-            public void onAnimationEnd(Drawable drawable) {
-                super.onAnimationEnd(drawable);
-                expandImageDrawable.clearAnimationCallbacks();
-                expandImage.setImageResource(detailed ? R.drawable.ic_animated_vector_chevron_down : R.drawable.ic_animated_vector_chevron_up);
-            }
-        });
-
-        expandImageDrawable.start();
-
+        //animate the chevron expand/collapse image
+        AnimatedVectorDrawableCompat currentDrawable = AnimatedVectorDrawableCompat.create(getActivity(), detailed ? R.drawable.ic_animated_vector_chevron_up : R.drawable.ic_animated_vector_chevron_down);
+        if (currentDrawable != null) {
+            expandImage.setImageDrawable(currentDrawable);
+            currentDrawable.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+                @Override
+                public void onAnimationEnd(Drawable drawable) {
+                    super.onAnimationEnd(drawable);
+                    currentDrawable.clearAnimationCallbacks();
+                    expandImage.setImageResource(detailed ? R.drawable.ic_animated_vector_chevron_down : R.drawable.ic_animated_vector_chevron_up);
+                }
+            });
+            currentDrawable.start();
+        } else {
+            Timber.w("Error inflating animated vector drawable for detailed = %s", detailed);
+        }
     }
 
     @OnClick({R.id.card_pollutants, R.id.expand_btn})
