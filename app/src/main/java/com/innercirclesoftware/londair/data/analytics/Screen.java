@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.innercirclesoftware.londair.ui.main.ForecastViewPagerAdapter;
-import com.innercirclesoftware.londair.ui.main.MainActivity;
 
 import timber.log.Timber;
 
