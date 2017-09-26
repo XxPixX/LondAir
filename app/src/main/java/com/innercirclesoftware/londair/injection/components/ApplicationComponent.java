@@ -1,8 +1,10 @@
 package com.innercirclesoftware.londair.injection.components;
 
 import com.innercirclesoftware.londair.Londair;
+import com.innercirclesoftware.londair.data.analytics.Analytics;
 import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
 import com.innercirclesoftware.londair.data.tfl.TflService;
+import com.innercirclesoftware.londair.injection.modules.AnalyticsModule;
 import com.innercirclesoftware.londair.injection.modules.AndroidModule;
 import com.innercirclesoftware.londair.injection.modules.NetworkModule;
 import com.innercirclesoftware.londair.injection.modules.NotificationModule;
@@ -16,6 +18,7 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {
+        AnalyticsModule.class,
         AndroidModule.class,
         NetworkModule.class,
         NotificationModule.class,
@@ -26,6 +29,8 @@ public interface ApplicationComponent {
     PreferenceManager preferenceManager();
 
     TflService tflService();
+
+    Analytics analytics();
 
     void inject(Londair app);
 

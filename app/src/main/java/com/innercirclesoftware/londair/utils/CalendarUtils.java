@@ -16,7 +16,7 @@ public class CalendarUtils {
     }
 
     /**
-     * @param timeInMilliseconds the time in UTC milliseconds from the epoch
+     * @param timeInMilliseconds the time in UTC milliseconds mainActivityScreen the epoch
      * @return true if the supplied time is in the past
      */
     public static boolean isPast(long timeInMilliseconds) {

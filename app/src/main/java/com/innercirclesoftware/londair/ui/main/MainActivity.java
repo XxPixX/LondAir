@@ -15,6 +15,8 @@ import android.widget.AdapterView;
 
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.base.BaseActivity;
+import com.innercirclesoftware.londair.data.analytics.Analytics;
+import com.innercirclesoftware.londair.data.analytics.Screen;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 
 import javax.inject.Inject;
@@ -24,9 +26,12 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity implements MainView {
 
     @Inject MainPresenter presenter;
+    @Inject Analytics analytics;
+
     @BindView(R.id.date_spinner) AppCompatSpinner dateSpinner;
     @BindView(R.id.view_pager) ViewPager viewPager;
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
+
     private MainComponent mainComponent;
 
     @Override
@@ -72,6 +77,8 @@ public class MainActivity extends BaseActivity implements MainView {
             @Override
             public void onPageSelected(int position) {
                 presenter.onPageSelected(position);
+                //log the current fragment that is being shown (today, tomorrow)
+                analytics.logScreen(Screen.mainActivityScreen(position));
             }
 
             @Override

@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.base.BaseFragment;
 import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
+import com.innercirclesoftware.londair.ui.main.ForecastViewPagerAdapter;
 import com.innercirclesoftware.londair.ui.main.MainActivity;
 import com.innercirclesoftware.londair.ui.main.MainComponent;
 import com.innercirclesoftware.londair.ui.main.MainPresenter;
@@ -103,7 +104,7 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
     private boolean isToday = false;
 
-    public static AirQualityFragment getInstance(int position) {
+    public static AirQualityFragment newInstance(int position) {
         Bundle arguments = new Bundle();
         arguments.putInt(ARG_KEY_POSITION, position);
 
@@ -122,7 +123,7 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
         int position = getArguments().getInt(ARG_KEY_POSITION, -1); //-1 is an impossible position, don't want it to default to 0
         PrimitiveUtils.assertInRange(0, position, 1);
 
-        isToday = position == 0;
+        isToday = position == ForecastViewPagerAdapter.TAB_POSITION_TODAY;
         if (isToday) mainPresenter.attachTodaysView(this);
         else mainPresenter.attachTomorrowsView(this);
     }

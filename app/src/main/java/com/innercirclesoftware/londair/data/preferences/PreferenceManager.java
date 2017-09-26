@@ -20,13 +20,13 @@ public interface PreferenceManager {
 
     /**
      * @return an observable which when subscribed to, emits the hour for when the notification is scheduled.
-     * If the user changes the hour, the observable will emit the new hour. The hour is always from 0 to 23.
+     * If the user changes the hour, the observable will emit the new hour. The hour is always mainActivityScreen 0 to 23.
      */
     Observable<Integer> notificationHour();
 
     /**
      * @return and observable which when subscribed to, emits the minute for when the notification is scheduled.
-     * If the user changes the minute, the observable will emit the new minute. The minutes is always from 0 to 59.
+     * If the user changes the minute, the observable will emit the new minute. The minutes is always mainActivityScreen 0 to 59.
      */
     Observable<Integer> notificationMinute();
 

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.base.BaseActivity;
+import com.innercirclesoftware.londair.data.analytics.Analytics;
+import com.innercirclesoftware.londair.data.analytics.Screen;
 import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
 import com.innercirclesoftware.londair.data.tfl.ForecastBand;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
@@ -30,7 +32,12 @@ import timber.log.Timber;
 
 public class SettingsActivity extends BaseActivity implements SettingsView {
 
+    private static final Screen SETTINGS_SCREEN = new Screen.Builder()
+            .name("Settings")
+            .build();
+
     @Inject SettingsPresenter presenter;
+    @Inject Analytics analytics;
 
     @BindView(R.id.notification_switch) SwitchCompat notificationSwitch;
 
@@ -47,6 +54,7 @@ public class SettingsActivity extends BaseActivity implements SettingsView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        analytics.logScreen(SETTINGS_SCREEN);
         registerPresenter(presenter);
     }
 
