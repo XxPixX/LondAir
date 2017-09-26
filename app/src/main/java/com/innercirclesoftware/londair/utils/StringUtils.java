@@ -5,7 +5,15 @@ import android.support.annotation.NonNull;
 import java.util.Arrays;
 
 public class StringUtils {
-    public static void assertContains(@NonNull String[] possibilities, String value) {
+
+    /**
+     * Checks if the possibilities contains the specified value, ignoring the case.
+     *
+     * @param possibilities the possible values that value can take
+     * @param value         the value that must be present in possibilities
+     * @throws AssertionError if possibilities doesn't contain the value
+     */
+    public static void assertContains(@NonNull String[] possibilities, @NonNull String value) {
         boolean foundPossibility = false;
 
         for (String possibility : possibilities) {
