@@ -43,11 +43,11 @@ android {
 }
 
 def version = ext.version = [
-        support          : "26.0.1",
-        dagger           : "2.11",
-        butterknife      : "8.6.0",
-        retrofit         : "2.3.0",
-        leak_canary      : "1.5.1"
+        support    : "26.0.1",
+        dagger     : "2.11",
+        butterknife: "8.6.0",
+        retrofit   : "2.3.0",
+        leak_canary: "1.5.1"
 ];
 
 dependencies {

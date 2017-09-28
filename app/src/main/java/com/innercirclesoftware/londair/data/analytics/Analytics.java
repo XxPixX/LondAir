@@ -6,4 +6,6 @@ public interface Analytics {
 
     void logScreen(@NonNull Screen screen);
 
+    void logRefresh(@RefreshSource int source);
+
 }

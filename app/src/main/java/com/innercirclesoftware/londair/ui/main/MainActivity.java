@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import com.innercirclesoftware.londair.R;
 import com.innercirclesoftware.londair.base.BaseActivity;
 import com.innercirclesoftware.londair.data.analytics.Analytics;
+import com.innercirclesoftware.londair.data.analytics.Refresh;
 import com.innercirclesoftware.londair.data.analytics.Screen;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 
@@ -91,7 +92,10 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void initSwipeRefreshLayout() {
-        swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefreshSwiped());
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            analytics.logRefresh(Refresh.PULL_TO_REFRESH);
+            presenter.onRefreshSwiped();
+        });
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
     }
 
@@ -109,6 +113,7 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.refresh) {
+            analytics.logRefresh(Refresh.TOOLBAR);
             swipeRefreshLayout.setRefreshing(true);
             presenter.onRefreshSwiped();
             return true;
