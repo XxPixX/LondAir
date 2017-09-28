@@ -28,7 +28,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
-import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainView {
 
@@ -76,16 +75,12 @@ public class MainActivity extends BaseActivity implements MainView {
 
         spinnerItemSelections = RxAdapterView.itemSelections(dateSpinner)
                 .doOnNext(integer -> navigationSourcePublisher.onNext(Navigation.TOOLBAR_SPINNER)) //notify our publisher that the spinner was acted upon, but we don't know if by the user or by code
-                .doOnNext(position -> {
-                    Timber.d("Notifying analytics that user selected something in the spinner");
-                    presenter.onSpinnerDateItemSelected(position);
-                })
+                .doOnNext(position -> presenter.onSpinnerDateItemSelected(position))
                 .subscribe();
 
         viewPagerSelections = RxViewPager.pageSelections(viewPager)
                 .doOnNext(integer -> navigationSourcePublisher.onNext(Navigation.VIEW_PAGER))//notify our publisher that the viewpager was acted upon, but we don't know if by the user or by code
                 .doOnNext(position -> {
-                    Timber.d("Notifying analytics that user changed the page");
                     presenter.onPageSelected(position);
                     //log the current fragment that is being shown (today, tomorrow)
                     analytics.logScreen(Screen.mainActivityScreen(position));
