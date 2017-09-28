@@ -38,6 +38,8 @@ class MainPresenterImpl implements MainPresenter {
         Timber.v("Attaching view %s to %s", view, this);
         this.view = view;
         view.setRefreshing(RxUtils.isRunning(forecastFetcher));
+        view.selectSpinnerDate(0);
+        view.showForecastFragment(0);
     }
 
     @Override

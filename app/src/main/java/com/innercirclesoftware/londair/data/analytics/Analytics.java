@@ -8,4 +8,6 @@ public interface Analytics {
 
     void logRefresh(@RefreshSource int source);
 
+    void logForecastNavigationMethod(@ForecastNavigationMethod int method);
+
 }

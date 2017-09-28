@@ -15,6 +15,11 @@ public class AnswersAnalytics implements Analytics {
     private static final String VALUE_PULL_TO_REFRESH = "Pull to refresh";
     private static final String VALUE_TOOLBAR = "Toolbar";
 
+    private static final String EVENT_NAME_FORECAST_NAVIGATION = "Forecast navigation";
+    private static final String KEY_NAVIGATION_METHOD = "Method";
+    private static final String VALUE_TOOLBAR_SPINNER = "Toolbar spinner";
+    private static final String VALUE_VIEW_PAGER = "ViewPager swiped";
+
     @NonNull private final Answers answers;
 
     public AnswersAnalytics(@NonNull Answers answers) {
@@ -47,8 +52,29 @@ public class AnswersAnalytics implements Analytics {
                 break;
             default:
                 Timber.w("Unknown refresh source %s", source);
+                break;
         }
 
         answers.logCustom(refreshEvent);
+    }
+
+    @Override
+    public void logForecastNavigationMethod(@ForecastNavigationMethod int method) {
+        Timber.d("logForecastNavigationMethod: %s", method);
+
+        CustomEvent forecastNavigationEvent = new CustomEvent(EVENT_NAME_FORECAST_NAVIGATION);
+        switch (method) {
+            case Navigation.TOOLBAR_SPINNER:
+                forecastNavigationEvent.putCustomAttribute(KEY_NAVIGATION_METHOD, VALUE_TOOLBAR_SPINNER);
+                break;
+            case Navigation.VIEW_PAGER:
+                forecastNavigationEvent.putCustomAttribute(KEY_NAVIGATION_METHOD, VALUE_VIEW_PAGER);
+                break;
+            default:
+                Timber.w("Unknown forecast navigation method %s", method);
+                break;
+        }
+
+        answers.logCustom(forecastNavigationEvent);
     }
 }
