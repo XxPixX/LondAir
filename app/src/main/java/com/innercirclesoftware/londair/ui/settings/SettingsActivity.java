@@ -17,6 +17,7 @@ import com.innercirclesoftware.londair.data.analytics.Screen;
 import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
 import com.innercirclesoftware.londair.data.tfl.ForecastBand;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
+import com.innercirclesoftware.londair.utils.CalendarUtils;
 import com.innercirclesoftware.londair.utils.ViewUtils;
 
 import java.util.Arrays;
@@ -106,7 +107,11 @@ public class SettingsActivity extends BaseActivity implements SettingsView {
     @Override
     public void showNotificationTimePicker(@NonNull Calendar currentTime) {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                (timePicker, hour, minute) -> presenter.onNotificationTimeSelected(hour, minute),
+                (timePicker, hour, minute) -> {
+                    presenter.onNotificationTimeSelected(hour, minute);
+                    Calendar newNotificationTime = CalendarUtils.getCalendarWithHourMinute(hour, minute);
+                    analytics.logNotificationTimeChanged(newNotificationTime);
+                },
                 currentTime.get(Calendar.HOUR_OF_DAY),
                 currentTime.get(Calendar.MINUTE),
                 DateFormat.is24HourFormat(this)
@@ -127,21 +132,24 @@ public class SettingsActivity extends BaseActivity implements SettingsView {
                 .items(severities)
                 .itemsCallbackSingleChoice(Arrays.asList(severities).indexOf(currentSeverity), (dialog, itemView, which, text) -> {
                     //can't use a switch statement as it needs constants...
+                    String band = null;
                     if (text.equals(severityHigh)) {
-                        presenter.onMinimumSeverityChanged(CurrentForecast.BAND_HIGH);
-                        return true;
+                        band = CurrentForecast.BAND_HIGH;
                     }
 
                     if (text.equals(severityModerate)) {
-                        presenter.onMinimumSeverityChanged(CurrentForecast.BAND_MODERATE);
-                        return true;
+                        band = CurrentForecast.BAND_HIGH;
                     }
 
                     if (text.equals(severityLow)) {
-                        presenter.onMinimumSeverityChanged(CurrentForecast.BAND_LOW);
-                        return true;
+                        band = CurrentForecast.BAND_LOW;
                     }
 
+                    if (band != null) {
+                        analytics.logNotificationMinSeverityChanged(band);
+                        presenter.onMinimumSeverityChanged(band);
+                        return true;
+                    }
 
                     Timber.w("Unknown severity selected with text %s, index %s", text, which);
                     return false;
@@ -152,6 +160,7 @@ public class SettingsActivity extends BaseActivity implements SettingsView {
 
     @OnCheckedChanged(R.id.notification_switch)
     protected void onNotificationSwitchChecked(boolean isChecked) {
+        analytics.logNotificationEnabled(isChecked);
         presenter.onNotificationSwitchChecked(isChecked);
     }
 
