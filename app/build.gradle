@@ -9,7 +9,6 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
-apply plugin: 'me.tatarka.retrolambda'
 
 repositories {
     mavenCentral()
@@ -42,9 +41,9 @@ android {
 }
 
 def version = ext.version = [
-        support    : "26.0.1",
+        support    : "26.1.0",
         dagger     : "2.11",
-        butterknife: "8.6.0",
+        butterknife: "8.8.1",
         retrofit   : "2.3.0",
         leak_canary: "1.5.1"
 ];
@@ -81,17 +80,17 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava2:${version.retrofit}"
 
     //gson
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     //OkHttp
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okio:okio:1.7.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    compile 'com.squareup.okio:okio:1.13.0'
 
     //Timber
-    compile 'com.jakewharton.timber:timber:4.5.0'
+    compile 'com.jakewharton.timber:timber:4.5.1'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-        transitive = true;
+        transitive = true
     }
 
     //leak canary
@@ -101,11 +100,21 @@ dependencies {
 
     //rx
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.2'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.4'
     compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC2'
     compile 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
 
     //material dialogs
-    compile 'com.afollestad.material-dialogs:core:0.9.4.7'
+    /*
+    version 0.9.4.7 still uses an old version of the support library, as a workaround, added transitive state false
+    materialprogressbar library that it depends on and added transitive false for that too
+    see https://github.com/afollestad/material-dialogs/issues/1451
+    */
+    compile('com.afollestad.material-dialogs:core:0.9.4.7') {
+        transitive = false
+    }
+    compile('me.zhanghai.android.materialprogressbar:library:1.4.1') {
+        transitive = false
+    }
 }
