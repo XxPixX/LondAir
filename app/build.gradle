@@ -9,7 +9,6 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
 repositories {
@@ -19,7 +18,7 @@ repositories {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.innercirclesoftware.londair"
         minSdkVersion 21
@@ -70,10 +69,10 @@ dependencies {
 
     //butterknife
     compile "com.jakewharton:butterknife:${version.butterknife}"
-    apt "com.jakewharton:butterknife-compiler:${version.butterknife}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${version.butterknife}"
 
     //dagger
-    apt "com.google.dagger:dagger-compiler:${version.dagger}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${version.dagger}"
     compile "com.google.dagger:dagger:${version.dagger}"
     provided 'javax.annotation:jsr250-api:1.0'
 
