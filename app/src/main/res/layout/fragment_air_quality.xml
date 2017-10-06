@@ -267,6 +267,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:contentDescription="@string/expand_btn_content_description"
                     android:layout_marginRight="16dp"
                     android:foreground="?selectableItemBackgroundBorderless"
                     android:padding="4dp"
