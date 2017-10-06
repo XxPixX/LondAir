@@ -6,12 +6,13 @@ import android.support.annotation.NonNull;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
+import com.innercirclesoftware.londair.data.analytics.CrashlyticsTree;
+import com.innercirclesoftware.londair.data.notifications.NotificationScheduler;
 import com.innercirclesoftware.londair.data.tfl.TflService;
 import com.innercirclesoftware.londair.injection.components.ApplicationComponent;
 import com.innercirclesoftware.londair.injection.components.DaggerApplicationComponent;
 import com.innercirclesoftware.londair.injection.modules.AndroidModule;
 import com.innercirclesoftware.londair.injection.modules.NetworkModule;
-import com.innercirclesoftware.londair.data.notifications.NotificationScheduler;
 
 import javax.inject.Inject;
 
@@ -42,7 +43,8 @@ public class Londair extends Application {
     }
 
     private void initTimber() {
-        Timber.plant(new Timber.DebugTree());
+        if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
+        else Timber.plant(new CrashlyticsTree());
     }
 
     private void initDependencyInjection() {
