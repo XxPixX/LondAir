@@ -1,15 +1,14 @@
-package com.innercirclesoftware.londair.notifications;
+package com.innercirclesoftware.londair.data.notifications;
 
 import android.content.Context;
 import android.content.Intent;
 
 import timber.log.Timber;
 
-public class ForecastBootReceiver extends NotificationSchedulerReceiver {
-
+public class ForecastExternalStorageMountedReceiver extends NotificationSchedulerReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Timber.i("Received boot action");
+        Timber.i("Received external storage mounted action");
         super.onReceive(context, intent);
     }
 }

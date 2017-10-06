@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.innercirclesoftware.londair.R;
-import com.innercirclesoftware.londair.base.BaseActivity;
+import com.innercirclesoftware.londair.ui.base.BaseActivity;
 import com.innercirclesoftware.londair.data.analytics.Analytics;
 import com.innercirclesoftware.londair.data.analytics.Screen;
 import com.innercirclesoftware.londair.data.tfl.CurrentForecast;

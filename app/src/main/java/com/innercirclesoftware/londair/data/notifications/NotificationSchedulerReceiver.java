@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.notifications;
+package com.innercirclesoftware.londair.data.notifications;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

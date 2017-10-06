@@ -26,15 +26,15 @@
             android:name=".ui.settings.SettingsActivity"
             android:parentActivityName=".ui.main.MainActivity"/>
 
-        <service android:name=".notifications.ForecastNotificationService"/>
+        <service android:name=".data.notifications.ForecastNotificationService"/>
 
-        <receiver android:name=".notifications.ForecastBootReceiver">
+        <receiver android:name=".data.notifications.ForecastBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".notifications.ForecastExternalStorageMountedReceiver">
+        <receiver android:name=".data.notifications.ForecastExternalStorageMountedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EXTERNAL_APPLICATIONS_AVAILABLE"/>
             </intent-filter>

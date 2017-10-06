@@ -2,7 +2,7 @@ package com.innercirclesoftware.londair.ui.settings;
 
 import android.support.annotation.NonNull;
 
-import com.innercirclesoftware.londair.base.BaseView;
+import com.innercirclesoftware.londair.ui.base.BaseView;
 import com.innercirclesoftware.londair.data.tfl.ForecastBand;
 
 import java.util.Calendar;

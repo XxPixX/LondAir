@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.innercirclesoftware.londair.R;
-import com.innercirclesoftware.londair.base.BaseActivity;
+import com.innercirclesoftware.londair.ui.base.BaseActivity;
 import com.innercirclesoftware.londair.data.analytics.Analytics;
 import com.innercirclesoftware.londair.data.analytics.Navigation;
 import com.innercirclesoftware.londair.data.analytics.Refresh;

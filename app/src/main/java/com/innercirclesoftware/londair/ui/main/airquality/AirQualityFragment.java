@@ -27,7 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.innercirclesoftware.londair.R;
-import com.innercirclesoftware.londair.base.BaseFragment;
+import com.innercirclesoftware.londair.ui.base.BaseFragment;
 import com.innercirclesoftware.londair.data.tfl.CurrentForecast;
 import com.innercirclesoftware.londair.ui.main.ForecastViewPagerAdapter;
 import com.innercirclesoftware.londair.ui.main.MainActivity;

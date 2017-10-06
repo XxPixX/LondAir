@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.innercirclesoftware.londair.data.preferences.PreferenceManager;
-import com.innercirclesoftware.londair.notifications.NotificationScheduler;
+import com.innercirclesoftware.londair.data.notifications.NotificationScheduler;
 
 import dagger.Module;
 import dagger.Provides;

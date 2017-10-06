@@ -9,8 +9,8 @@ import com.innercirclesoftware.londair.injection.modules.AndroidModule;
 import com.innercirclesoftware.londair.injection.modules.NetworkModule;
 import com.innercirclesoftware.londair.injection.modules.NotificationModule;
 import com.innercirclesoftware.londair.injection.modules.PreferencesModule;
-import com.innercirclesoftware.londair.notifications.ForecastNotificationService;
-import com.innercirclesoftware.londair.notifications.NotificationSchedulerReceiver;
+import com.innercirclesoftware.londair.data.notifications.ForecastNotificationService;
+import com.innercirclesoftware.londair.data.notifications.NotificationSchedulerReceiver;
 
 import javax.inject.Singleton;
 

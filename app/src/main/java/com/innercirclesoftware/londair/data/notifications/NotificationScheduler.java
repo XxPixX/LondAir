@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.notifications;
+package com.innercirclesoftware.londair.data.notifications;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

@@ -1,6 +1,6 @@
 package com.innercirclesoftware.londair.ui.main;
 
-import com.innercirclesoftware.londair.base.BaseView;
+import com.innercirclesoftware.londair.ui.base.BaseView;
 
 interface MainView extends BaseView {
 

@@ -1,4 +1,4 @@
-package com.innercirclesoftware.londair.base;
+package com.innercirclesoftware.londair.ui.base;
 
 import android.content.Intent;
 import android.os.Bundle;

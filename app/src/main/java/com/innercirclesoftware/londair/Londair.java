@@ -11,7 +11,7 @@ import com.innercirclesoftware.londair.injection.components.ApplicationComponent
 import com.innercirclesoftware.londair.injection.components.DaggerApplicationComponent;
 import com.innercirclesoftware.londair.injection.modules.AndroidModule;
 import com.innercirclesoftware.londair.injection.modules.NetworkModule;
-import com.innercirclesoftware.londair.notifications.NotificationScheduler;
+import com.innercirclesoftware.londair.data.notifications.NotificationScheduler;
 
 import javax.inject.Inject;
 
