@@ -31,13 +31,13 @@
 
                 <TextView
                     android:id="@+id/forecast_band"
-                    tools:text="High"
-                    style="@style/CardTitle"/>
+                    style="@style/CardTitle"
+                    tools:text="High"/>
 
                 <TextView
                     android:id="@+id/forecast_summary"
-                    tools:text="Low air pollution forecast valid from Sunday 23 September to end of Monday 25 September GTM"
-                    style="@style/CardDescription"/>
+                    style="@style/CardDescription"
+                    tools:text="Low air pollution forecast valid from Sunday 23 September to end of Monday 25 September GTM"/>
 
             </LinearLayout>
 
@@ -247,6 +247,7 @@
                     app:layout_constraintTop_toBottomOf="@id/so2_subtitle"
                     tools:visibility="visible"/>
 
+                <!--tools:ignore="RtlSymmetry" is defined because the card already has paddingLeft = 16dp defined-->
                 <TextView
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/pollutants_general_advice"
@@ -260,6 +261,7 @@
                     android:visibility="gone"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider"
+                    tools:ignore="RtlSymmetry"
                     tools:visibility="visible"/>
 
                 <ImageView
@@ -267,8 +269,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:contentDescription="@string/expand_btn_content_description"
                     android:layout_marginRight="16dp"
+                    android:contentDescription="@string/expand_btn_content_description"
                     android:foreground="?selectableItemBackgroundBorderless"
                     android:padding="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"

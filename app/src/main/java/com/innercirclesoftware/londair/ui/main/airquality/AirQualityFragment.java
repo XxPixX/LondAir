@@ -234,7 +234,7 @@ public class AirQualityFragment extends BaseFragment implements AirQualityView {
 
     @Override
     public void showDetailedPollutantSummaries(boolean detailed) {
-        //TODO interpolators don't seem to work... on any of the following 3 transitions, needs investigatin
+        //TODO interpolators don't seem to work... on any of the following 3 transitions, needs investigation
         Transition changeBounds = new AutoTransition();
         changeBounds.excludeTarget(pollutantsGeneralAdvice, true);
         changeBounds.excludeTarget(pollutantsGeneralAdviceDivider, true);

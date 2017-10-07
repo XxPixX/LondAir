@@ -46,7 +46,7 @@ def version = ext.version = [
         butterknife: "8.8.1",
         retrofit   : "2.3.0",
         leak_canary: "1.5.1"
-];
+]
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
