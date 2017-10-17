@@ -138,7 +138,7 @@ public class SettingsActivity extends BaseActivity implements SettingsView {
                     }
 
                     if (text.equals(severityModerate)) {
-                        band = CurrentForecast.BAND_HIGH;
+                        band = CurrentForecast.BAND_MODERATE;
                     }
 
                     if (text.equals(severityLow)) {
